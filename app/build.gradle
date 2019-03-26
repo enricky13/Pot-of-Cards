@@ -25,4 +25,15 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    //RecyclerView
+    implementation 'com.android.support:recyclerview-v7:28.0.0'
+    //Picasso
+    implementation 'com.squareup.picasso:picasso:2.71828'
+    //Retrofit
+    implementation 'com.squareup.retrofit2:retrofit:2.5.0'
+    //Gson for Retrofit
+    implementation 'com.squareup.retrofit2:converter-gson:2.5.0'
+    //So RunTime Errors including conflicting versions of libraries don't occur
+    implementation 'androidx.exifinterface:exifinterface:1.1.0-alpha01'
+
 }
