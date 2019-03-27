@@ -2,7 +2,7 @@ package com.example.ygocardsearch.model;
 
 import java.util.List;
 
-public class CardsList {
+public class CardModel {
     /**
      * Name: Name of Card
      * Type: Ex: Normal Monster, Effect Monster
