@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">YgoCardSearch</string>
+    <string name="card_search_button_text">Card Search</string>
+    <string name="life_point_button_text">Life Point Counter</string>
 </resources>
