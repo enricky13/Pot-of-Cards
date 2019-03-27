@@ -2,4 +2,8 @@
     <string name="app_name">YgoCardSearch</string>
     <string name="card_search_button_text">Card Search</string>
     <string name="life_point_button_text">Life Point Counter</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hint_user_card_search">Type your card here...</string>
 </resources>
