@@ -10,20 +10,18 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class CardNetworkCall {
-
+public class CardNetworkCallSingleton {
     public static final String TAG = "FINDME";
-    private CardModel[][] cardModels;
+    private CardNetworkCallSingleton(){}
 
-    public void makeCallForAllCards(){
+    public static void setupCardDataList(){
         YgoCardSingleton.getInstance()
                 .create(YgoApiCall.class)
                 .getCards()
                 .enqueue(new Callback<CardModel[][]>() {
                     @Override
                     public void onResponse(Call<CardModel[][]> call, Response<CardModel[][]> response) {
-                         cardModels = response.body();
-                         CardDataList.convertToList(cardModels);
+                         CardDataList.convertToList(response.body());
                     }
                     @Override
                     public void onFailure(Call<CardModel[][]> call, Throwable t) {
