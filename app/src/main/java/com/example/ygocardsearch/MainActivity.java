@@ -9,9 +9,9 @@ import com.example.ygocardsearch.search_result_fragments.MonsterCardFragment;
 import com.example.ygocardsearch.before_search_fragments.CardSearchFragment;
 import com.example.ygocardsearch.before_search_fragments.UserChoosesFragment;
 import com.example.ygocardsearch.model.CardModel;
+import com.example.ygocardsearch.search_result_fragments.SpellTrapCardFragment;
 
 public class MainActivity extends AppCompatActivity implements FragmentToFragment {
-    public static final String TAG = "FINDME";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,11 +47,22 @@ public class MainActivity extends AppCompatActivity implements FragmentToFragmen
 
     @Override
     public void gotToCorrectCardFragment(CardModel cardModel) {
-        MonsterCardFragment monsterCardFragment = MonsterCardFragment.newInstance(cardModel);
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.main_fragment_container, monsterCardFragment)
-                .addToBackStack(null)
-                .commit();
+        if (cardModel.getAtk() != null){
+            MonsterCardFragment monsterCardFragment = MonsterCardFragment.newInstance(cardModel);
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.main_fragment_container, monsterCardFragment)
+                    .addToBackStack(null)
+                    .commit();
+        }
+        else {
+            SpellTrapCardFragment spellTrapCardFragment = SpellTrapCardFragment.newInstance(cardModel);
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.main_fragment_container,spellTrapCardFragment)
+                    .addToBackStack(null)
+                    .commit();
+        }
+
     }
 }
