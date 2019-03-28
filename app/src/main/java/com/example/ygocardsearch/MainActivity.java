@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.example.ygocardsearch.card_data.CardNetworkCallSingleton;
+import com.example.ygocardsearch.fragments.CardCollectionFragment;
 import com.example.ygocardsearch.fragments.CardSearchFragment;
 import com.example.ygocardsearch.fragments.FragmentToFragment;
 import com.example.ygocardsearch.fragments.UserChoosesFragment;
@@ -30,6 +31,15 @@ public class MainActivity extends AppCompatActivity implements FragmentToFragmen
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.main_fragment_container,cardSearchFragment)
+                .commit();
+    }
+
+    @Override
+    public void goToCardCollectionFragment() {
+        CardCollectionFragment cardCollectionFragment = CardCollectionFragment.newInstance();
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.main_fragment_container,cardCollectionFragment)
                 .commit();
     }
 }
