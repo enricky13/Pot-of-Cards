@@ -4,6 +4,6 @@
     android:id="@+id/card_recyclerview"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.CardCollectionFragment">
+    tools:context=".search_result_fragments.CardCollectionFragment">
 
 </android.support.v7.widget.RecyclerView>

@@ -1,7 +1,6 @@
-package com.example.ygocardsearch.fragments;
+package com.example.ygocardsearch.before_search_fragments;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -12,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.example.ygocardsearch.FragmentToFragment;
 import com.example.ygocardsearch.R;
 
 public class CardSearchFragment extends Fragment {
