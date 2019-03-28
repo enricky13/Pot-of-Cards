@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:background="#ffffff"
-    tools:context=".fragments.CardSearchFragment">
+    tools:context=".before_search_fragments.CardSearchFragment">
 
     <EditText
         android:id="@+id/user_card_search"

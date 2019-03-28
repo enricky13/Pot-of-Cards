@@ -1,8 +1,12 @@
 package com.example.ygocardsearch.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import java.io.Serializable;
 import java.util.List;
 
-public class CardModel {
+public class CardModel implements Serializable {
     /**
      * Name: Name of Card
      * Type: Ex: Normal Monster, Effect Monster
@@ -60,4 +64,5 @@ public class CardModel {
     public String getImage_url_small() {
         return image_url_small;
     }
+
 }
