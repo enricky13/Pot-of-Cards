@@ -23,7 +23,7 @@ public class CardCollectionViewHolder extends RecyclerView.ViewHolder {
     public void onBind(CardModel cardModel){
         cardNameTv.setText(cardModel.getName());
         Picasso.get()
-                .load(cardModel.getImage_url())
+                .load(cardModel.getImage_url_small())
                 .into(cardImageIv);
     }
 }
