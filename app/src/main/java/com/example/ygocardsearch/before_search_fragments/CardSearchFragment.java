@@ -10,11 +10,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 
 import com.example.ygocardsearch.FragmentToFragment;
 import com.example.ygocardsearch.R;
 
 public class CardSearchFragment extends Fragment {
+    private EditText searchCardEt;
     private Button goTofilterButton;
     private Button goToCardCollectionButton;
     private FragmentToFragment fragToFragListener;
@@ -24,7 +26,6 @@ public class CardSearchFragment extends Fragment {
         // Required empty public constructor
     }
 
-    // TODO: Rename and change types and number of parameters
     public static CardSearchFragment newInstance() {
         CardSearchFragment fragment = new CardSearchFragment();
         Bundle args = new Bundle();
@@ -39,6 +40,7 @@ public class CardSearchFragment extends Fragment {
         rootView = inflater.inflate(R.layout.fragment_card_search, container, false);
         goTofilterButton = rootView.findViewById(R.id.go_to_filter_button);
         goToCardCollectionButton = rootView.findViewById(R.id.go_to_card_collection_button);
+        searchCardEt = rootView.findViewById(R.id.user_card_search);
         return rootView;
     }
 
@@ -49,8 +51,13 @@ public class CardSearchFragment extends Fragment {
         goToCardCollectionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("FINDME", "onClick: ");
-                fragToFragListener.goToCardCollectionFragment();
+                if (searchCardEt.getText().toString().trim().length() < 1){
+                    fragToFragListener.goToCardCollectionFragment(null);
+                }
+                else {
+                    String userInput = searchCardEt.getText().toString();
+                    fragToFragListener.goToCardCollectionFragment(userInput);
+                }
             }
         });
     }

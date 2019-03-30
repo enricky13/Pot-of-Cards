@@ -2,6 +2,7 @@ package com.example.ygocardsearch;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.example.ygocardsearch.card_data.CardNetworkCallSingleton;
 import com.example.ygocardsearch.search_result_fragments.CardCollectionFragment;
@@ -36,13 +37,24 @@ public class MainActivity extends AppCompatActivity implements FragmentToFragmen
     }
 
     @Override
-    public void goToCardCollectionFragment() {
-        CardCollectionFragment cardCollectionFragment = CardCollectionFragment.newInstance();
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.main_fragment_container,cardCollectionFragment)
-                .addToBackStack(null)
-                .commit();
+    public void goToCardCollectionFragment(String userInput) {
+        if (userInput == null) {
+            CardCollectionFragment cardCollectionFragment = CardCollectionFragment.newInstance(null);
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.main_fragment_container, cardCollectionFragment)
+                    .addToBackStack(null)
+                    .commit();
+        }
+        else {
+            Log.d("FINDME", "User Has Inputted ");
+            CardCollectionFragment cardCollectionFragment = CardCollectionFragment.newInstance(userInput);
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.main_fragment_container,cardCollectionFragment)
+                    .addToBackStack(null)
+                    .commit();
+        }
     }
 
     @Override

@@ -4,6 +4,6 @@ import com.example.ygocardsearch.model.CardModel;
 
 public interface FragmentToFragment {
     void goToCardSearchFragment();
-    void goToCardCollectionFragment();
+    void goToCardCollectionFragment(String userInput);
     void gotToCorrectCardFragment(CardModel cardModel);
 }

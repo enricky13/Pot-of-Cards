@@ -20,4 +20,20 @@ public class CardDataList {
         cardModelList = new ArrayList<>();
         cardModelList.addAll(Arrays.asList(networkData[0]));
     }
+
+    public static List<CardModel> getFilteredList(String userInput){
+        List<CardModel> filteredList = new ArrayList<>();
+        String userInputLowerCase = userInput.toLowerCase().trim().replaceAll(" +"," ");   // Word is minimized to 1 space only but only if there are letters following
+        Log.d("FINDME", "UserInput size:"+userInputLowerCase.length()+" UserInput word:"+userInputLowerCase);
+
+        for (CardModel card : cardModelList) {
+            String cardName = card.getName().toLowerCase().replaceAll("-+"," ");
+            String cardDesc = card.getDesc().toLowerCase();
+
+            if (cardName.contains(userInputLowerCase) || cardDesc.contains(userInputLowerCase)){
+                filteredList.add(card);
+            }
+        }
+        return filteredList;
+    }
 }
