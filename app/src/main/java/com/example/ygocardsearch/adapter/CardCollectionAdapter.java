@@ -38,4 +38,5 @@ public class CardCollectionAdapter extends RecyclerView.Adapter<CardCollectionVi
     public int getItemCount() {
         return cardModelList.size();
     }
+
 }
