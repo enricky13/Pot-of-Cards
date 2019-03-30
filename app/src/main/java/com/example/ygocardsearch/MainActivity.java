@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.example.ygocardsearch.before_search_fragments.UserFilterFragment;
 import com.example.ygocardsearch.card_data.CardNetworkCallSingleton;
 import com.example.ygocardsearch.search_result_fragments.CardCollectionFragment;
 import com.example.ygocardsearch.search_result_fragments.MonsterCardFragment;
@@ -76,5 +77,15 @@ public class MainActivity extends AppCompatActivity implements FragmentToFragmen
                     .commit();
         }
 
+    }
+
+    @Override
+    public void goToUserFilter() {
+        UserFilterFragment userFilterFragment = UserFilterFragment.newInstance();
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.main_fragment_container,userFilterFragment)
+                .addToBackStack(null)
+                .commit();
     }
 }
