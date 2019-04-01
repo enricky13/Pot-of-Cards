@@ -48,6 +48,13 @@ public class CardSearchFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        goTofilterButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fragToFragListener.goToUserFilter();
+            }
+        });
+
         goToCardCollectionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

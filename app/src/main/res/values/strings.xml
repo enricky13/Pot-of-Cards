@@ -8,4 +8,54 @@
     <string name="hint_user_card_search">Type your card here...</string>
     <string name="start_search_text">Start Search</string>
     <string name="filter">Filter</string>
+    <string name="main_card_type">Card Type:</string>
+    <string name="monster_card">Monster Card</string>
+    <string name="spell_card">Spell Card</string>
+    <string name="trap_card">Trap Card</string>
+    <string name="apply_filter">Apply Filter</string>
+    <string name="card_type">Card Type</string>
+    <string name="spell_type">Spell Type:</string>
+    <string name="trap_type">Trap Type:</string>
+
+    <string-array name="monster_type">
+        <item>Aqua</item>
+        <item>Beast</item>
+        <item>Beast-Warrior</item>
+        <item>Creator-God</item>
+        <item>Cyberse</item>
+        <item>Dinosaur</item>
+        <item>Divine-Beast</item>
+        <item>Dragon</item>
+        <item>Fairy</item>
+        <item>Fiend</item>
+        <item>Fish</item>
+        <item>Insect</item>
+        <item>Machine</item>
+        <item>Plant</item>
+        <item>Psychic</item>
+        <item>Pyro</item>
+        <item>Reptile</item>
+        <item>Rock</item>
+        <item>Sea Serpent</item>
+        <item>Spellcaster</item>
+        <item>Thunder</item>
+        <item>Warrior</item>
+        <item>Winged Beast</item>
+    </string-array>
+    
+    <string-array name="spell_type">
+        <item>Normal</item>
+        <item>Field</item>
+        <item>Equip</item>
+        <item>Continuous</item>
+        <item>Quick-Play</item>
+        <item>Ritual</item>
+    </string-array>
+    
+    <string-array name="trap_type">
+        <item>Normal</item>
+        <item>Continuous</item>
+        <item>Counter</item>
+    </string-array>
+
 </resources>
