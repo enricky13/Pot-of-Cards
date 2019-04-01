@@ -7,4 +7,5 @@ public interface FragmentToFragment {
     void goToCardCollectionFragment(String userInput);
     void gotToCorrectCardFragment(CardModel cardModel);
     void goToUserFilter();
+    void goToCardRulings(String cardName);
 }

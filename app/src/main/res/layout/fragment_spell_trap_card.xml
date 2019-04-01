@@ -18,5 +18,10 @@
         android:id="@+id/card_desc_spell_trap"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
+    <Button
+        android:id="@+id/go_to_card_rulings_spell_trap_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/card_rulings"/>
 
 </LinearLayout>

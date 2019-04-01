@@ -1,5 +1,7 @@
 package com.example.ygocardsearch;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -87,5 +89,14 @@ public class MainActivity extends AppCompatActivity implements FragmentToFragmen
                 .replace(R.id.main_fragment_container,userFilterFragment)
                 .addToBackStack(null)
                 .commit();
+    }
+
+    @Override
+    public void goToCardRulings(String cardName) {
+        // May give a 404 error since card does not have card ruling
+        String cardRulingWebsite = "https://yugioh.fandom.com/wiki/Card_Rulings:";
+        Intent webIntent = new Intent(Intent.ACTION_VIEW);
+        webIntent.setData(Uri.parse(cardRulingWebsite+cardName));
+        startActivity(webIntent);
     }
 }

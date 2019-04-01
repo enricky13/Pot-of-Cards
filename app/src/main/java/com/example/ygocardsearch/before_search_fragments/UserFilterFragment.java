@@ -5,9 +5,11 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -19,12 +21,12 @@ import com.example.ygocardsearch.SharedPref.FilterSharedPreference;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class UserFilterFragment extends Fragment{
+public class UserFilterFragment extends Fragment implements AdapterView.OnItemSelectedListener {
     public static final String TAG = "FINDME";
     private View rootView;
     private Button applyFilterButton;
     private CheckBox monsterCheck, spellCheck, trapCheck;
-    private Spinner monsterTypeSpinner, spellTypeSpinner, trapTypeSpinner;
+    private Spinner monsterTypeSpinner,monsterAttributeSpinner, spellTypeSpinner, trapTypeSpinner;
 
 
     public UserFilterFragment() {
@@ -51,10 +53,11 @@ public class UserFilterFragment extends Fragment{
         super.onViewCreated(view, savedInstanceState);
 
         spinnerSetup();
+
         applyFilterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FilterSharedPreference.addMainCardTypeToSharedPreference(getContext(),monsterCheck.isChecked(),spellCheck.isChecked(),trapCheck.isChecked());
+                FilterSharedPreference.addMainCardTypeToSharedPref(getContext(),monsterCheck.isChecked(),spellCheck.isChecked(),trapCheck.isChecked());
             }
         });
     }
@@ -65,6 +68,7 @@ public class UserFilterFragment extends Fragment{
         trapCheck = rootView.findViewById(R.id.trap_card_checkbox);
         applyFilterButton = rootView.findViewById(R.id.apply_filter_button);
         monsterTypeSpinner = rootView.findViewById(R.id.monster_type_spinner);
+        monsterAttributeSpinner = rootView.findViewById(R.id.monster_attribute_spinner);
         spellTypeSpinner = rootView.findViewById(R.id.spell_type_spinner);
         trapTypeSpinner = rootView.findViewById(R.id.trap_type_spinner);
 
@@ -75,6 +79,10 @@ public class UserFilterFragment extends Fragment{
         adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
         monsterTypeSpinner.setAdapter(adapter);
 
+        adapter = ArrayAdapter.createFromResource(getContext(), R.array.monster_attribute,R.layout.support_simple_spinner_dropdown_item);
+        adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+        monsterAttributeSpinner.setAdapter(adapter);
+
         adapter = ArrayAdapter.createFromResource(getContext(),R.array.spell_type,R.layout.support_simple_spinner_dropdown_item);
         adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
         spellTypeSpinner.setAdapter(adapter);
@@ -82,6 +90,33 @@ public class UserFilterFragment extends Fragment{
         adapter = ArrayAdapter.createFromResource(getContext(),R.array.trap_type,R.layout.support_simple_spinner_dropdown_item);
         adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
         trapTypeSpinner.setAdapter(adapter);
+
+        monsterTypeSpinner.setOnItemSelectedListener(this);
+        monsterAttributeSpinner.setOnItemSelectedListener(this);
+        spellTypeSpinner.setOnItemSelectedListener(this);
+        trapTypeSpinner.setOnItemSelectedListener(this);
     }
 
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        switch (parent.getId()){
+            case R.id.monster_type_spinner:
+                Log.d(TAG, "onItemSelected: "+monsterTypeSpinner.getItemAtPosition(position));
+                break;
+            case R.id.monster_attribute_spinner:
+                Log.d(TAG, "onItemSelected: "+monsterAttributeSpinner.getItemAtPosition(position));
+                break;
+            case R.id.spell_type_spinner:
+                Log.d(TAG, "onItemSelected: "+spellTypeSpinner.getItemAtPosition(position));
+                break;
+            case R.id.trap_type_spinner:
+                Log.d(TAG, "onItemSelected: "+trapTypeSpinner.getItemAtPosition(position));
+                break;
+        }
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
+    }
 }

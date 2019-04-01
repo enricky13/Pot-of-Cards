@@ -11,7 +11,7 @@ public class FilterSharedPreference {
     private static final String TRAP_CARD_KEY = "isTrapCard";
     private static SharedPreferences sharedPreferences;
 
-    public static void addMainCardTypeToSharedPreference(Context context, boolean isMonster, boolean isSpellCard, boolean isTrapCard){
+    public static void addMainCardTypeToSharedPref(Context context, boolean isMonster, boolean isSpellCard, boolean isTrapCard){
        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
        sharedPreferences.edit()
                .putBoolean(MONSTER_CARD_KEY, isMonster)
@@ -20,7 +20,7 @@ public class FilterSharedPreference {
                .apply();
     }
 
-    public static void addCardTypeToSharedPreference(Context context){
+    public static void addMonsterTypesToSharedPref(Context context){
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         sharedPreferences.edit();
     }
