@@ -9,9 +9,11 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.ygocardsearch.FragmentToFragment;
 import com.example.ygocardsearch.R;
 import com.example.ygocardsearch.model.CardModel;
 import com.squareup.picasso.Picasso;
@@ -22,8 +24,10 @@ import com.squareup.picasso.Picasso;
 public class MonsterCardFragment extends Fragment {
     public static final String CARD_MODEL = "CardModel";
     private TextView cardName, cardLevel, cardAtk, cardDef, cardDesc;
+    private Button cardRulingsButton;
     private ImageView cardImg;
     private CardModel cardModel;
+    private FragmentToFragment fragmentToFragment;
     View rootView;
 
 
@@ -51,6 +55,7 @@ public class MonsterCardFragment extends Fragment {
         cardDef = rootView.findViewById(R.id.card_def_card_description);
         cardDesc = rootView.findViewById(R.id.card_desc_card_description);
         cardImg = rootView.findViewById(R.id.card_image_card_description);
+        cardRulingsButton = rootView.findViewById(R.id.go_to_card_rulings_button);
         return rootView;
     }
 
@@ -65,11 +70,18 @@ public class MonsterCardFragment extends Fragment {
         Picasso.get()
                 .load(cardModel.getImage_url())
                 .into(cardImg);
+        cardRulingsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fragmentToFragment.goToCardRulings(cardModel.getName());
+            }
+        });
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+        fragmentToFragment = (FragmentToFragment) context;
         if (cardModel == null){
             cardModel = (CardModel) getArguments().getSerializable(CARD_MODEL);
         }
@@ -78,5 +90,6 @@ public class MonsterCardFragment extends Fragment {
     @Override
     public void onDetach() {
         super.onDetach();
+        fragmentToFragment = null;
     }
 }

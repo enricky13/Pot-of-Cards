@@ -9,9 +9,11 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.ygocardsearch.FragmentToFragment;
 import com.example.ygocardsearch.R;
 import com.example.ygocardsearch.model.CardModel;
 import com.squareup.picasso.Picasso;
@@ -22,8 +24,10 @@ import com.squareup.picasso.Picasso;
 public class SpellTrapCardFragment extends Fragment {
     public static final String CARDMODEL = "CARDMODEL";
     private TextView cardName,cardDesc;
+    private Button goToCardRulingsButton;
     private ImageView cardImg;
     private CardModel cardModel;
+    private FragmentToFragment fragmentToFragment;
     View rootView;
 
 
@@ -48,6 +52,7 @@ public class SpellTrapCardFragment extends Fragment {
         cardName = rootView.findViewById(R.id.card_name_spell_trap);
         cardDesc = rootView.findViewById(R.id.card_desc_spell_trap);
         cardImg = rootView.findViewById(R.id.card_image_spell_trap);
+        goToCardRulingsButton = rootView.findViewById(R.id.go_to_card_rulings_spell_trap_button);
         return rootView;
     }
 
@@ -59,11 +64,18 @@ public class SpellTrapCardFragment extends Fragment {
         Picasso.get()
                 .load(cardModel.getImage_url())
                 .into(cardImg);
+        goToCardRulingsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fragmentToFragment.goToCardRulings(cardModel.getName());
+            }
+        });
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+        fragmentToFragment = (FragmentToFragment) context;
         if (getArguments() != null){
             cardModel = (CardModel) getArguments().getSerializable(CARDMODEL);
         }
@@ -73,5 +85,6 @@ public class SpellTrapCardFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         cardModel = null;
+        fragmentToFragment = null;
     }
 }
