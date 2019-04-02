@@ -22,6 +22,7 @@ public class CardNetworkCallSingleton {
                     @Override
                     public void onResponse(Call<CardModel[][]> call, Response<CardModel[][]> response) {
                          CardDataList.convertToList(response.body());
+                        Log.d(TAG, "onResponse: Data is saved");
                     }
                     @Override
                     public void onFailure(Call<CardModel[][]> call, Throwable t) {
