@@ -51,7 +51,7 @@ public class CardCollectionFragment extends Fragment {
             cardCollectionRecyclerView.setAdapter(new CardCollectionAdapter(CardDataList.getCardModelList(), fragmentToFragmentListener));
         }
         else {
-            cardCollectionRecyclerView.setAdapter(new CardCollectionAdapter(CardDataList.getFilteredList(userInput), fragmentToFragmentListener));
+            cardCollectionRecyclerView.setAdapter(new CardCollectionAdapter(CardDataList.getFilteredList(userInput, getContext()), fragmentToFragmentListener));
         }
         cardCollectionRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
         return rootView;

@@ -27,7 +27,8 @@ public class UserFilterFragment extends Fragment implements AdapterView.OnItemSe
     private Button applyFilterButton;
     private CheckBox monsterCheck, spellCheck, trapCheck;
     private Spinner monsterTypeSpinner,monsterAttributeSpinner, spellTypeSpinner, trapTypeSpinner;
-
+    private boolean isMonster, isSpell, isTrap;
+    private String monsterType, monsterAttribute, spellType, trapType;
 
     public UserFilterFragment() {
         // Required empty public constructor
@@ -54,10 +55,32 @@ public class UserFilterFragment extends Fragment implements AdapterView.OnItemSe
 
         spinnerSetup();
 
+        monsterCheck.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                isMonster = monsterCheck.isChecked();
+            }
+        });
+        spellCheck.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                isSpell = spellCheck.isChecked();
+            }
+        });
+        trapCheck.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                isTrap = trapCheck.isChecked();
+            }
+        });
+
         applyFilterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FilterSharedPreference.addMainCardTypeToSharedPref(getContext(),monsterCheck.isChecked(),spellCheck.isChecked(),trapCheck.isChecked());
+                FilterSharedPreference.addMainCardTypeToSharedPref(getContext(), isMonster, isSpell, isTrap);
+                FilterSharedPreference.addMonsterFilterToSharedPref(getContext(),monsterType,monsterAttribute);
+                FilterSharedPreference.addSpellFilterToSharedPref(getContext(),spellType);
+                FilterSharedPreference.addTrapFilterToSharedPref(getContext(),trapType);
             }
         });
     }
@@ -71,7 +94,6 @@ public class UserFilterFragment extends Fragment implements AdapterView.OnItemSe
         monsterAttributeSpinner = rootView.findViewById(R.id.monster_attribute_spinner);
         spellTypeSpinner = rootView.findViewById(R.id.spell_type_spinner);
         trapTypeSpinner = rootView.findViewById(R.id.trap_type_spinner);
-
     }
 
     public void spinnerSetup(){
@@ -101,16 +123,36 @@ public class UserFilterFragment extends Fragment implements AdapterView.OnItemSe
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         switch (parent.getId()){
             case R.id.monster_type_spinner:
-                Log.d(TAG, "onItemSelected: "+monsterTypeSpinner.getItemAtPosition(position));
+                if (position == 0){
+                    monsterType = null;
+                }
+                else {
+                    monsterType = monsterTypeSpinner.getItemAtPosition(position).toString();
+                }
                 break;
             case R.id.monster_attribute_spinner:
-                Log.d(TAG, "onItemSelected: "+monsterAttributeSpinner.getItemAtPosition(position));
+                if (position == 0){
+                    monsterType = null;
+                }
+                else {
+                    monsterAttribute = monsterAttributeSpinner.getItemAtPosition(position).toString();
+                }
                 break;
             case R.id.spell_type_spinner:
-                Log.d(TAG, "onItemSelected: "+spellTypeSpinner.getItemAtPosition(position));
+                if (position == 0){
+                    spellType = null;
+                }
+                else {
+                    spellType = spellTypeSpinner.getItemAtPosition(position).toString();
+                }
                 break;
             case R.id.trap_type_spinner:
-                Log.d(TAG, "onItemSelected: "+trapTypeSpinner.getItemAtPosition(position));
+                if (position == 0){
+                    trapType = null;
+                }
+                else {
+                    trapType = trapTypeSpinner.getItemAtPosition(position).toString();
+                }
                 break;
         }
     }
