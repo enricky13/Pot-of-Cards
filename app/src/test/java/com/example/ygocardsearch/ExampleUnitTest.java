@@ -1,5 +1,8 @@
 package com.example.ygocardsearch;
 
+import com.example.ygocardsearch.card_data.CardDataList;
+
+import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -10,8 +13,13 @@ import static org.junit.Assert.*;
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
 public class ExampleUnitTest {
+    private CardDataList cardDataList;
+    @Before
+    public void setupData(){
+        cardDataList = new CardDataList();
+    }
     @Test
-    public void addition_isCorrect() {
-        assertEquals(4, 2 + 2);
+    public void isDataCorrect(){
+
     }
 }
