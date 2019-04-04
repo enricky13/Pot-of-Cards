@@ -18,6 +18,7 @@ import com.example.ygocardsearch.R;
 import com.example.ygocardsearch.SharedPref.FilterSharedPreference;
 
 public class CardSearchFragment extends Fragment {
+    String TAG = "FINDME";
     private EditText searchCardEt;
     private Button goTofilterButton;
     private Button goToCardCollectionButton;
@@ -39,10 +40,13 @@ public class CardSearchFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        SharedPreferences sharedPreferences = getContext().getSharedPreferences(UserFilterFragment.SHARED_PREF_KEY,Context.MODE_PRIVATE);
         rootView = inflater.inflate(R.layout.fragment_card_search, container, false);
         goTofilterButton = rootView.findViewById(R.id.go_to_filter_button);
         goToCardCollectionButton = rootView.findViewById(R.id.go_to_card_collection_button);
         searchCardEt = rootView.findViewById(R.id.user_card_search);
+
+        Log.d(TAG, "onCreateView: "+sharedPreferences.getString(FilterSharedPreference.MONSTER_ATTRIBUTE_KEY,null));
 
         return rootView;
     }
@@ -50,7 +54,6 @@ public class CardSearchFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        SharedPreferences sharedPreferences = getContext().getSharedPreferences(UserFilterFragment.SHARED_PREF_KEY,Context.MODE_PRIVATE);
 
         goTofilterButton.setOnClickListener(new View.OnClickListener() {
             @Override
