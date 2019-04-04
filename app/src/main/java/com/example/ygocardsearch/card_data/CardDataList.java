@@ -52,8 +52,13 @@ public class CardDataList {
 
 
         String userInputLowerCase = userInput.toLowerCase().trim().replaceAll(" +"," ").replaceAll("-", " ");   // Word is minimized to 1 space only but only if there are letters following
-        Log.d("FINDME", "getFilteredList: Monster Type Value: "+monsterType);
-        Log.d("FINDME", "getFilteredList: monster Position: "+sharedPreferences.getInt(FilterSharedPreference.MONSTER_TYPE_POSITION_KEY, -1));
+        String TAG = "FINDME";
+        Log.d(TAG, "getFilteredList: "+userInputLowerCase);
+        Log.d(TAG, "getFilteredList: Monster Type Value: "+monsterType);
+        Log.d(TAG, "getFilteredList: monster Position: "+sharedPreferences.getInt(FilterSharedPreference.MONSTER_TYPE_POSITION_KEY, -1));
+        Log.d(TAG, "getFilteredList: Card Model Size"+cardModelList.size());
+        Log.d(TAG, "getFilteredList: Monster Attribute"+monsterAttribute);
+        Log.d(TAG, "getFilteredList: ");
 
         for (CardModel card : cardModelList) {
             String cardName = card.getName().toLowerCase().replaceAll("-"," ");
@@ -72,6 +77,7 @@ public class CardDataList {
                     if (monsterAttribute != null && !(cardAttribute.equals(monsterAttribute))){
                         continue;
                     }
+                    Log.d(TAG, "getFilteredList: Card is being added");
                     filteredList.add(card);
                 }
                 if (isSpell){
@@ -92,7 +98,7 @@ public class CardDataList {
             }
         }
 
-        Log.d("FINDME", "getFilteredList: "+monsterType);
+        Log.d(TAG, "size of filtered list: "+filteredList.size());
         for (CardModel cardModel: filteredList){
             if (monsterType != null){               // Checks if the user wants to look for a monster type
                 if (cardModel.getAtk() != null){            // Checks if the card is a monster only
@@ -103,7 +109,7 @@ public class CardDataList {
             }
         }
 
-        Log.d("FINDME", "getFilteredList: "+filteredList.size());
+        Log.d(TAG, "size of filtered List: "+filteredList.size());
         return filteredList;
     }
 }

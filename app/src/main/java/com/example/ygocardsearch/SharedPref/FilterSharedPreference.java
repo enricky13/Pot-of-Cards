@@ -34,7 +34,7 @@ public class FilterSharedPreference {
                 .putString(MONSTER_ATTRIBUTE_KEY, monsterAttribute)
                 .putInt(MONSTER_TYPE_POSITION_KEY, monsterTypePosition)
                 .putInt(MONSTER_ATTRIBUTE_POSITION_KEY, monsterAttributePosition)
-                .commit();
+                .apply();
     }
 
     public static void addSpellFilterToSharedPref(SharedPreferences sharedPreferences, String spellType, int spellTypePosition){

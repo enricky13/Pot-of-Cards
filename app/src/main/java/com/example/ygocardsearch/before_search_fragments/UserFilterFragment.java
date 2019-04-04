@@ -53,24 +53,23 @@ public class UserFilterFragment extends Fragment implements AdapterView.OnItemSe
         // Inflate the layout for this fragment
         rootView = inflater.inflate(R.layout.fragment_user_filter, container, false);
         findViews();
-        sharedPreferences = getContext().getSharedPreferences(SHARED_PREF_KEY,Context.MODE_PRIVATE);
-        if (sharedPreferences == null){
+        if (sharedPreferences != null){
             isMonster = sharedPreferences.getBoolean(FilterSharedPreference.MONSTER_CARD_KEY,false);
             isSpell = sharedPreferences.getBoolean(FilterSharedPreference.SPELL_CARD_KEY,false);
             isTrap = sharedPreferences.getBoolean(FilterSharedPreference.TRAP_CARD_KEY,false);
 
             monsterType = sharedPreferences.getString(FilterSharedPreference.MONSTER_TYPE_KEY, null);
-
             monsterAttribute = sharedPreferences.getString(FilterSharedPreference.MONSTER_ATTRIBUTE_KEY,null);
             spellType = sharedPreferences.getString(FilterSharedPreference.SPELL_TYPE,null);
             trapType = sharedPreferences.getString(FilterSharedPreference.TRAP_TYPE,null);
+
             monsterTypePosition = sharedPreferences.getInt(FilterSharedPreference.MONSTER_TYPE_POSITION_KEY,0);
             monsterAttributePosition = sharedPreferences.getInt(FilterSharedPreference.MONSTER_ATTRIBUTE_POSITION_KEY,0);
             spellTypeSpinnerPosition = sharedPreferences.getInt(FilterSharedPreference.SPELL_TYPE_POSITION_KEY,0);
             trapTypeSpinnerPosition = sharedPreferences.getInt(FilterSharedPreference.TRAP_TYPE_POSITION_KEY,0);
         }
-
-        Log.d(TAG, "onCreateView: MonsterType Value: "+sharedPreferences.getString(FilterSharedPreference.MONSTER_TYPE_KEY, null)+" Monster Spinner Value: "+sharedPreferences.getInt(FilterSharedPreference.MONSTER_ATTRIBUTE_POSITION_KEY, -1));
+        Log.d(TAG, "Is there a value for Monster Type: "+sharedPreferences.contains(FilterSharedPreference.MONSTER_TYPE_KEY));
+        Log.d(TAG, "onCreateView: MonsterType Value: "+sharedPreferences.getString(FilterSharedPreference.MONSTER_TYPE_KEY, null)+" Monster Spinner Value: "+sharedPreferences.getInt(FilterSharedPreference.MONSTER_TYPE_POSITION_KEY, -1));
 
         monsterCheck.setChecked(isMonster);
         spellCheck.setChecked(isSpell);
@@ -83,6 +82,7 @@ public class UserFilterFragment extends Fragment implements AdapterView.OnItemSe
         super.onViewCreated(view, savedInstanceState);
 
         spinnerSetup();
+        Log.d(TAG, "onViewCreated Monster Type Value: "+monsterType);
 
         monsterCheck.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -107,7 +107,9 @@ public class UserFilterFragment extends Fragment implements AdapterView.OnItemSe
             @Override
             public void onClick(View v) {
 //                sharedPreferences = getContext().getSharedPreferences(SHARED_PREF_KEY, Context.MODE_PRIVATE);
-                Log.d(TAG, "onClick: "+monsterType);
+                Log.d(TAG, "onClick: Monster Type Value: "+monsterType);
+                Log.d(TAG, "onClick: Spell Type Value"+spellType);
+                Log.d(TAG, "onClick: Monster Type Position Value: "+monsterTypePosition);
                 FilterSharedPreference.addMainCardTypeToSharedPref(sharedPreferences, isMonster, isSpell, isTrap);
                 FilterSharedPreference.addMonsterFilterToSharedPref(sharedPreferences, monsterType, monsterAttribute, monsterTypePosition, monsterAttributePosition);
                 FilterSharedPreference.addSpellFilterToSharedPref(sharedPreferences, spellType, spellTypeSpinnerPosition);
@@ -122,6 +124,7 @@ public class UserFilterFragment extends Fragment implements AdapterView.OnItemSe
     public void onAttach(Context context) {
         super.onAttach(context);
         fragmentToFragment = (FragmentToFragment) context;
+        sharedPreferences = context.getSharedPreferences(SHARED_PREF_KEY, Context.MODE_PRIVATE);
     }
 
     @Override
@@ -168,20 +171,23 @@ public class UserFilterFragment extends Fragment implements AdapterView.OnItemSe
         trapTypeSpinner.setOnItemSelectedListener(this);
     }
 
+    // Code runs through here when starting the app
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        Log.d(TAG, "onItemSelected: Code is running through here");
+        Log.d(TAG, "onItemSelected: Position Number"+position);
         switch (parent.getId()) {
             case R.id.monster_type_spinner:
                 if (position == 0) {
                     monsterType = null;
                 } else {
-                    monsterType = monsterTypeSpinner.getItemAtPosition(position).toString();
+                    monsterType = monsterTypeSpinner.getItemAtPosition(monsterTypePosition).toString();
                 }
                 monsterTypePosition = position;
                 break;
             case R.id.monster_attribute_spinner:
                 if (position == 0) {
-                    monsterType = null;
+                    monsterAttribute = null;
                 } else {
                     monsterAttribute = monsterAttributeSpinner.getItemAtPosition(position).toString();
                 }
@@ -204,6 +210,7 @@ public class UserFilterFragment extends Fragment implements AdapterView.OnItemSe
                 trapTypeSpinnerPosition = position;
                 break;
         }
+        Log.d(TAG, "onItemSelected: This Method is done: "+monsterTypePosition);
     }
 
     @Override

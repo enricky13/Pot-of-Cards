@@ -50,7 +50,7 @@ public class CardCollectionFragment extends Fragment {
         rootView = inflater.inflate(R.layout.fragment_card_collection, container, false);
         cardCollectionRecyclerView = rootView.findViewById(R.id.card_recyclerview);
         SharedPreferences sharedPreferences = getContext().getSharedPreferences(UserFilterFragment.SHARED_PREF_KEY,Context.MODE_PRIVATE);
-        Log.d("FINDME", "onCreateView: "+sharedPreferences.getString(FilterSharedPreference.MONSTER_TYPE_KEY,null));
+        Log.d("FINDME", "CardCollection Fragment OnCreatView: "+sharedPreferences.getString(FilterSharedPreference.MONSTER_TYPE_KEY,null));
         if (userInput == null) {
             cardCollectionRecyclerView.setAdapter(new CardCollectionAdapter(CardDataList.getCardModelList(), fragmentToFragmentListener));
         }
