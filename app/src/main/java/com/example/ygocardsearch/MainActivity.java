@@ -2,12 +2,14 @@ package com.example.ygocardsearch;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 
 import com.example.ygocardsearch.before_search_fragments.UserFilterFragment;
-import com.example.ygocardsearch.card_data.CardNetworkCallSingleton;
+import com.example.ygocardsearch.network.CardNetworkCallSingleton;
 import com.example.ygocardsearch.search_result_fragments.CardCollectionFragment;
 import com.example.ygocardsearch.search_result_fragments.MonsterCardFragment;
 import com.example.ygocardsearch.before_search_fragments.CardSearchFragment;
@@ -23,60 +25,46 @@ public class MainActivity extends AppCompatActivity implements FragmentToFragmen
         setContentView(R.layout.activity_main);
         CardNetworkCallSingleton.setupCardDataList();
 
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.main_fragment_container, UserChoosesFragment.newInstance())
+        inflateFragment(UserChoosesFragment.newInstance());
+    }
+
+    private void inflateFragment(Fragment fragment) {
+        inflateFragment(fragment, false);
+    }
+
+    private void inflateFragment(Fragment fragment, boolean addToBack) {
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager()
+                .beginTransaction();
+        if (addToBack) fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.replace(R.id.main_fragment_container, fragment)
                 .commit();
     }
 
     @Override
     public void goToCardSearchFragment() {
-        CardSearchFragment cardSearchFragment = CardSearchFragment.newInstance();
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.main_fragment_container,cardSearchFragment)
-                .addToBackStack(null)
-                .commit();
+        inflateFragment(CardSearchFragment.newInstance(), true);
     }
 
     @Override
     public void goToCardCollectionFragment(String userInput) {
         if (userInput == null) {
             CardCollectionFragment cardCollectionFragment = CardCollectionFragment.newInstance(null);
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.main_fragment_container, cardCollectionFragment)
-                    .addToBackStack(null)
-                    .commit();
-        }
-        else {
+            inflateFragment(cardCollectionFragment, true);
+        } else {
             Log.d("FINDME", "User Has Inputted ");
             CardCollectionFragment cardCollectionFragment = CardCollectionFragment.newInstance(userInput);
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.main_fragment_container,cardCollectionFragment)
-                    .addToBackStack(null)
-                    .commit();
+            inflateFragment(cardCollectionFragment, true);
         }
     }
 
     @Override
     public void gotToCorrectCardFragment(CardModel cardModel) {
-        if (cardModel.getAtk() != null){
+        if (cardModel.getAtk() != null) {
             MonsterCardFragment monsterCardFragment = MonsterCardFragment.newInstance(cardModel);
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.main_fragment_container, monsterCardFragment)
-                    .addToBackStack(null)
-                    .commit();
-        }
-        else {
+            inflateFragment(monsterCardFragment, true);
+        } else {
             SpellTrapCardFragment spellTrapCardFragment = SpellTrapCardFragment.newInstance(cardModel);
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.main_fragment_container,spellTrapCardFragment)
-                    .addToBackStack(null)
-                    .commit();
+            inflateFragment(spellTrapCardFragment, true);
         }
 
     }
@@ -84,11 +72,7 @@ public class MainActivity extends AppCompatActivity implements FragmentToFragmen
     @Override
     public void goToUserFilter() {
         UserFilterFragment userFilterFragment = UserFilterFragment.newInstance();
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.main_fragment_container,userFilterFragment)
-                .addToBackStack(null)
-                .commit();
+        inflateFragment(userFilterFragment, true);
     }
 
     @Override
@@ -96,7 +80,7 @@ public class MainActivity extends AppCompatActivity implements FragmentToFragmen
         // May give a 404 error since card does not have card ruling
         String cardRulingWebsite = "https://yugioh.fandom.com/wiki/Card_Rulings:";
         Intent webIntent = new Intent(Intent.ACTION_VIEW);
-        webIntent.setData(Uri.parse(cardRulingWebsite+cardName));
+        webIntent.setData(Uri.parse(cardRulingWebsite + cardName));
         startActivity(webIntent);
     }
 }

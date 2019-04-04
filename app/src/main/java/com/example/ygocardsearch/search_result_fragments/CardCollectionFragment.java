@@ -2,6 +2,7 @@ package com.example.ygocardsearch.search_result_fragments;
 
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
@@ -12,7 +13,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.ygocardsearch.R;
+import com.example.ygocardsearch.SharedPref.FilterSharedPreference;
 import com.example.ygocardsearch.adapter.CardCollectionAdapter;
+import com.example.ygocardsearch.before_search_fragments.UserFilterFragment;
 import com.example.ygocardsearch.card_data.CardDataList;
 import com.example.ygocardsearch.FragmentToFragment;
 
@@ -45,13 +48,14 @@ public class CardCollectionFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         rootView = inflater.inflate(R.layout.fragment_card_collection, container, false);
-        Log.d("FINDME", "onCreateView: "+userInput);
         cardCollectionRecyclerView = rootView.findViewById(R.id.card_recyclerview);
+        SharedPreferences sharedPreferences = getContext().getSharedPreferences(UserFilterFragment.SHARED_PREF_KEY,Context.MODE_PRIVATE);
+        Log.d("FINDME", "onCreateView: "+sharedPreferences.getString(FilterSharedPreference.MONSTER_TYPE_KEY,null));
         if (userInput == null) {
             cardCollectionRecyclerView.setAdapter(new CardCollectionAdapter(CardDataList.getCardModelList(), fragmentToFragmentListener));
         }
         else {
-            cardCollectionRecyclerView.setAdapter(new CardCollectionAdapter(CardDataList.getFilteredList(userInput, getContext()), fragmentToFragmentListener));
+            cardCollectionRecyclerView.setAdapter(new CardCollectionAdapter(CardDataList.getFilteredList(sharedPreferences, userInput), fragmentToFragmentListener));
         }
         cardCollectionRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
         return rootView;

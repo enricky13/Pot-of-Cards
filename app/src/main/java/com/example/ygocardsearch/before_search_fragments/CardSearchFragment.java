@@ -1,6 +1,7 @@
 package com.example.ygocardsearch.before_search_fragments;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -14,6 +15,7 @@ import android.widget.EditText;
 
 import com.example.ygocardsearch.FragmentToFragment;
 import com.example.ygocardsearch.R;
+import com.example.ygocardsearch.SharedPref.FilterSharedPreference;
 
 public class CardSearchFragment extends Fragment {
     private EditText searchCardEt;
@@ -41,12 +43,14 @@ public class CardSearchFragment extends Fragment {
         goTofilterButton = rootView.findViewById(R.id.go_to_filter_button);
         goToCardCollectionButton = rootView.findViewById(R.id.go_to_card_collection_button);
         searchCardEt = rootView.findViewById(R.id.user_card_search);
+
         return rootView;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        SharedPreferences sharedPreferences = getContext().getSharedPreferences(UserFilterFragment.SHARED_PREF_KEY,Context.MODE_PRIVATE);
 
         goTofilterButton.setOnClickListener(new View.OnClickListener() {
             @Override
