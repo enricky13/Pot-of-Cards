@@ -53,60 +53,55 @@ public class CardDataList {
 
         String userInputLowerCase = userInput.toLowerCase().trim().replaceAll(" +"," ").replaceAll("-", " ");   // Word is minimized to 1 space only but only if there are letters following
         String TAG = "FINDME";
-        Log.d(TAG, "getFilteredList: "+userInputLowerCase);
-        Log.d(TAG, "getFilteredList: Monster Type Value: "+monsterType);
-        Log.d(TAG, "getFilteredList: monster Position: "+sharedPreferences.getInt(FilterSharedPreference.MONSTER_TYPE_POSITION_KEY, -1));
-        Log.d(TAG, "getFilteredList: Card Model Size"+cardModelList.size());
-        Log.d(TAG, "getFilteredList: Monster Attribute"+monsterAttribute);
-        Log.d(TAG, "getFilteredList: ");
+//        Log.d(TAG, "getFilteredList: "+userInputLowerCase);
+//        Log.d(TAG, "getFilteredList: Monster Type Value: "+monsterType);
+//        Log.d(TAG, "getFilteredList: monster Position: "+sharedPreferences.getInt(FilterSharedPreference.MONSTER_TYPE_POSITION_KEY, -1));
+//        Log.d(TAG, "getFilteredList: Card Model Size"+cardModelList.size());
+//        Log.d(TAG, "getFilteredList: Monster Attribute"+monsterAttribute);
+
+        Log.d(TAG, "getFilteredList: Spell Type value: "+spellType);
 
         for (CardModel card : cardModelList) {
             String cardName = card.getName().toLowerCase().replaceAll("-"," ");
             String cardDesc = card.getDesc().toLowerCase().replaceAll("-"," ");
-            String cardRace = card.getRace();
-            String cardAttribute = card.getAttribute();
 
-            if (cardName.contains(userInputLowerCase) || cardDesc.contains(userInputLowerCase)){
+            if (cardName.contains(userInputLowerCase) || cardDesc.contains(userInputLowerCase)) {
                 if (isMonster){
-                    if (card.getAtk() == null){
-                        continue;
+                    if (card.getAtk() != null){
+                        if (monsterType == null && monsterAttribute == null){
+                            filteredList.add(card);
+                            continue;
+                        }
+                        if ((monsterType != null &&card.getRace().contains(monsterType)) || (monsterAttribute != null &&card.getAttribute().contains(monsterAttribute))){
+                            filteredList.add(card);
+                            continue;
+                        }
                     }
-                    if (monsterType != null && !(cardRace.equals(monsterType))){
-                        continue;
-                    }
-                    if (monsterAttribute != null && !(cardAttribute.equals(monsterAttribute))){
-                        continue;
-                    }
-                    Log.d(TAG, "getFilteredList: Card is being added");
-                    filteredList.add(card);
                 }
                 if (isSpell){
-                    if (card.getType().equals(TRAP_CARD) || card.getAtk() != null){
-                        continue;
+                    if (card.getType().equals(SPELL_CARD)){
+                        if (spellType == null){
+                            filteredList.add(card);
+                            continue;
+                        }
+                        if (card.getRace().equals(spellType)){
+                            filteredList.add(card);
+                            continue;
+                        }
                     }
-                    if (spellType != null && !(card.getType().equals(spellType))){
-                        continue;
-                    }
-                    filteredList.add(card);
                 }
                 if (isTrap){
-                    if (card.getType().equals(SPELL_CARD) || card.getAtk() != null){
-                        continue;
+                    if (card.getType().equals(TRAP_CARD)){
+                        if (trapType == null){
+                            filteredList.add(card);
+                        }
+                        if (card.getRace().equals(trapType)){
+                            filteredList.add(card);
+                        }
                     }
-                    filteredList.add(card);
                 }
             }
-        }
 
-        Log.d(TAG, "size of filtered list: "+filteredList.size());
-        for (CardModel cardModel: filteredList){
-            if (monsterType != null){               // Checks if the user wants to look for a monster type
-                if (cardModel.getAtk() != null){            // Checks if the card is a monster only
-                    if (!(cardModel.getRace().equals(monsterType))){
-                        filteredList.remove(cardModel);
-                    }
-                }
-            }
         }
 
         Log.d(TAG, "size of filtered List: "+filteredList.size());
