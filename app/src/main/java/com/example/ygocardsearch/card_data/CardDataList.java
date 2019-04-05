@@ -20,18 +20,16 @@ import io.reactivex.schedulers.Schedulers;
 public class CardDataList {
     private static final String SPELL_CARD = "Spell Card";
     private static final String TRAP_CARD = "Trap Card";
+    private static String TAG = "FINDME";
+    private static String userInputLowerCase;
     private static List<CardModel> cardModelList;
 
-    public static List<CardModel> getCardModelList() {
-        return cardModelList;
-    }
-
-    public static void convertToList(@NonNull CardModel[][] networkData){
+    public static void convertToList(@NonNull CardModel[][] networkData) {
         cardModelList = new ArrayList<>();
         cardModelList.addAll(Arrays.asList(networkData[0]));
     }
 
-    public static List<CardModel> getFilteredList(SharedPreferences sharedPreferences, String userInput){
+    public static List<CardModel> getFilteredList(SharedPreferences sharedPreferences, String userInput) {
         List<CardModel> filteredList = new ArrayList<>();
 
         boolean isMonster = false;
@@ -42,7 +40,7 @@ public class CardDataList {
         String spellType = null;
         String trapType = null;
 
-        isMonster = sharedPreferences.getBoolean(FilterSharedPreference.MONSTER_CARD_KEY,false);
+        isMonster = sharedPreferences.getBoolean(FilterSharedPreference.MONSTER_CARD_KEY, false);
         isSpell = sharedPreferences.getBoolean(FilterSharedPreference.SPELL_CARD_KEY, false);
         isTrap = sharedPreferences.getBoolean(FilterSharedPreference.TRAP_CARD_KEY, false);
         monsterType = sharedPreferences.getString(FilterSharedPreference.MONSTER_TYPE_KEY, null);
@@ -50,61 +48,65 @@ public class CardDataList {
         spellType = sharedPreferences.getString(FilterSharedPreference.SPELL_TYPE, null);
         trapType = sharedPreferences.getString(FilterSharedPreference.TRAP_TYPE, null);
 
-
-        String userInputLowerCase = userInput.toLowerCase().trim().replaceAll(" +"," ").replaceAll("-", " ");   // Word is minimized to 1 space only but only if there are letters following
-        String TAG = "FINDME";
-//        Log.d(TAG, "getFilteredList: "+userInputLowerCase);
-//        Log.d(TAG, "getFilteredList: Monster Type Value: "+monsterType);
-//        Log.d(TAG, "getFilteredList: monster Position: "+sharedPreferences.getInt(FilterSharedPreference.MONSTER_TYPE_POSITION_KEY, -1));
-//        Log.d(TAG, "getFilteredList: Card Model Size"+cardModelList.size());
-//        Log.d(TAG, "getFilteredList: Monster Attribute"+monsterAttribute);
-
-        Log.d(TAG, "getFilteredList: Spell Type value: "+spellType);
+        if (userInput != null) {
+            userInputLowerCase = userInput.toLowerCase().trim().replaceAll(" +", " ").replaceAll("-", " ");   // Word is minimized to 1 space only but only if there are letters following
+        }
+        Log.d(TAG, "getFilteredList: " + userInput);
+        Log.d(TAG, "getFilteredList: " + monsterType);
+        Log.d(TAG, "getFilteredList: " + monsterAttribute);
 
         for (CardModel card : cardModelList) {
-            String cardName = card.getName().toLowerCase().replaceAll("-"," ");
-            String cardDesc = card.getDesc().toLowerCase().replaceAll("-"," ");
+            String cardName = card.getName().toLowerCase().replaceAll("-", " ");
+            String cardDesc = card.getDesc().toLowerCase().replaceAll("-", " ");
 
-            if (cardName.contains(userInputLowerCase) || cardDesc.contains(userInputLowerCase)) {
-                if (isMonster){
-                    if (card.getAtk() != null){
-                        if (monsterType == null && monsterAttribute == null){
-                            filteredList.add(card);
+            if (isMonster) {
+                if (card.getAtk() != null) {                 // Verifies if the card is a monster card only
+                    if (monsterType == null && monsterAttribute == null) {          // Accounts if both spinners are null
+                        if (inputNullChecker(userInput, filteredList, card, cardName, cardDesc))
                             continue;
-                        }
-                        if ((monsterType != null &&card.getRace().contains(monsterType)) || (monsterAttribute != null &&card.getAttribute().contains(monsterAttribute))){
-                            filteredList.add(card);
-                            continue;
-                        }
                     }
-                }
-                if (isSpell){
-                    if (card.getType().equals(SPELL_CARD)){
-                        if (spellType == null){
-                            filteredList.add(card);
-                            continue;
-                        }
-                        if (card.getRace().equals(spellType)){
-                            filteredList.add(card);
-                            continue;
-                        }
-                    }
-                }
-                if (isTrap){
-                    if (card.getType().equals(TRAP_CARD)){
-                        if (trapType == null){
-                            filteredList.add(card);
-                        }
-                        if (card.getRace().equals(trapType)){
-                            filteredList.add(card);
-                        }
+                    if ((monsterType != null && card.getRace().contains(monsterType)) || (monsterAttribute != null && card.getAttribute().contains(monsterAttribute))) {
+                        if (inputNullChecker(userInput, filteredList, card, cardName, cardDesc))
+                        continue;
                     }
                 }
             }
-
+            if (isSpell) {
+                if (card.getType().equals(SPELL_CARD)) {         // Verifies if the card is a spell card only
+                    if (spellType == null) {
+                        if (inputNullChecker(userInput, filteredList, card, cardName, cardDesc))
+                            continue;
+                    }
+                    if (card.getRace().equals(spellType)) {
+                        if (inputNullChecker(userInput, filteredList, card, cardName, cardDesc))
+                            continue;
+                    }
+                }
+            }
+            if (isTrap) {
+                if (card.getType().equals(TRAP_CARD)) {          // Verifies if the card is a trap card only.
+                    if (trapType == null) {
+                        if (inputNullChecker(userInput, filteredList, card, cardName, cardDesc))
+                            continue;
+                    }
+                    if (card.getRace().equals(trapType)) {
+                        if (inputNullChecker(userInput, filteredList, card, cardName, cardDesc)) continue;
+                    }
+                }
+            }
         }
-
-        Log.d(TAG, "size of filtered List: "+filteredList.size());
         return filteredList;
+    }
+
+    private static boolean inputNullChecker(String userInput, List<CardModel> filteredList, CardModel card, String cardName, String cardDesc) {
+        if (userInput == null){
+            filteredList.add(card);
+            return true;
+        }
+        if (cardName.contains(userInputLowerCase) || cardDesc.contains(userInputLowerCase)) {
+            filteredList.add(card);
+            return true;
+        }
+        return false;
     }
 }

@@ -24,7 +24,6 @@ import com.example.ygocardsearch.FragmentToFragment;
  */
 public class CardCollectionFragment extends Fragment {
     public static final String USERINPUT_KEY = "USERINPUT";
-    private RecyclerView cardCollectionRecyclerView;
     private FragmentToFragment fragmentToFragmentListener;
     private String userInput;
     View rootView;
@@ -48,15 +47,9 @@ public class CardCollectionFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         rootView = inflater.inflate(R.layout.fragment_card_collection, container, false);
-        cardCollectionRecyclerView = rootView.findViewById(R.id.card_recyclerview);
+        RecyclerView cardCollectionRecyclerView = rootView.findViewById(R.id.card_recyclerview);
         SharedPreferences sharedPreferences = getContext().getSharedPreferences(UserFilterFragment.SHARED_PREF_KEY,Context.MODE_PRIVATE);
-        Log.d("FINDME", "CardCollection Fragment OnCreatView: "+sharedPreferences.getString(FilterSharedPreference.MONSTER_TYPE_KEY,null));
-        if (userInput == null) {
-            cardCollectionRecyclerView.setAdapter(new CardCollectionAdapter(CardDataList.getCardModelList(), fragmentToFragmentListener));
-        }
-        else {
-            cardCollectionRecyclerView.setAdapter(new CardCollectionAdapter(CardDataList.getFilteredList(sharedPreferences, userInput), fragmentToFragmentListener));
-        }
+        cardCollectionRecyclerView.setAdapter(new CardCollectionAdapter(CardDataList.getFilteredList(sharedPreferences, userInput), fragmentToFragmentListener));
         cardCollectionRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
         return rootView;
     }
