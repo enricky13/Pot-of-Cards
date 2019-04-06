@@ -15,10 +15,11 @@
         app:layout_constraintTop_toTopOf="parent"
         android:text="@string/no_search_text"/>
 
-    <ImageView
+    <pl.droidsonroids.gif.GifImageView
         android:id="@+id/sad_kuriboh_gif"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@drawable/sad_kuriboh"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"

@@ -11,10 +11,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.example.ygocardsearch.R;
 
 public class NoSearchResultFragment extends Fragment {
     private ImageView sadKuribohImage;
+
+    public static NoSearchResultFragment newInstance() {
+        NoSearchResultFragment noSearchResultFragment = new NoSearchResultFragment();
+        return noSearchResultFragment;
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -32,7 +38,6 @@ public class NoSearchResultFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        sadKuribohImage = view.findViewById(R.id.sad_kuriboh_gif);
 
     }
 }

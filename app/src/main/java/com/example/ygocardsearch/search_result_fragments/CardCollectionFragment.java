@@ -46,8 +46,7 @@ public class CardCollectionFragment extends Fragment {
         // Inflate the layout for this fragment
         rootView = inflater.inflate(R.layout.fragment_card_collection, container, false);
         RecyclerView cardCollectionRecyclerView = rootView.findViewById(R.id.card_recyclerview);
-        SharedPreferences sharedPreferences = getContext().getSharedPreferences(UserFilterFragment.SHARED_PREF_KEY,Context.MODE_PRIVATE);
-        cardCollectionRecyclerView.setAdapter(new CardCollectionAdapter(CardDataList.getFilteredList(sharedPreferences, userInput), fragmentToFragmentListener));
+        cardCollectionRecyclerView.setAdapter(new CardCollectionAdapter(CardDataList.getFilteredList(), fragmentToFragmentListener));
         cardCollectionRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
         return rootView;
     }

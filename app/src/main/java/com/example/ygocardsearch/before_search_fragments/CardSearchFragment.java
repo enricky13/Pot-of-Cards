@@ -15,6 +15,7 @@ import android.widget.EditText;
 
 import com.example.ygocardsearch.FragmentToFragment;
 import com.example.ygocardsearch.R;
+import com.example.ygocardsearch.card_data.CardDataList;
 import com.example.ygocardsearch.sharedPref.FilterSharedPreference;
 
 public class CardSearchFragment extends Fragment {
@@ -23,6 +24,7 @@ public class CardSearchFragment extends Fragment {
     private Button goTofilterButton;
     private Button goToCardCollectionButton;
     private FragmentToFragment fragToFragListener;
+    SharedPreferences sharedPreferences;
     View rootView;
 
     public CardSearchFragment() {
@@ -40,7 +42,7 @@ public class CardSearchFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        SharedPreferences sharedPreferences = getContext().getSharedPreferences(UserFilterFragment.SHARED_PREF_KEY,Context.MODE_PRIVATE);
+        sharedPreferences = getContext().getSharedPreferences(UserFilterFragment.SHARED_PREF_KEY,Context.MODE_PRIVATE);
         rootView = inflater.inflate(R.layout.fragment_card_search, container, false);
         goTofilterButton = rootView.findViewById(R.id.go_to_filter_button);
         goToCardCollectionButton = rootView.findViewById(R.id.go_to_card_collection_button);
@@ -66,9 +68,11 @@ public class CardSearchFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (searchCardEt.getText().toString().trim().length() < 1){
+                    CardDataList.makeFilteredList(sharedPreferences,null);
                     fragToFragListener.goToCardCollectionFragment(null);
                 }
                 else {
+                    CardDataList.makeFilteredList(sharedPreferences,searchCardEt.getText().toString());
                     String userInput = searchCardEt.getText().toString();
                     fragToFragListener.goToCardCollectionFragment(userInput);
                 }
