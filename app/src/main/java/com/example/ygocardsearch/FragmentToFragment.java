@@ -8,4 +8,5 @@ public interface FragmentToFragment {
     void gotToCorrectCardFragment(CardModel cardModel);
     void goToUserFilter();
     void goToCardRulings(String cardName);
+    void startAppFragment();
 }
