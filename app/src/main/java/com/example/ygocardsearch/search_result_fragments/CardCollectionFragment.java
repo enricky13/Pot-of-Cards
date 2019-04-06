@@ -7,13 +7,11 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.ygocardsearch.R;
-import com.example.ygocardsearch.SharedPref.FilterSharedPreference;
 import com.example.ygocardsearch.adapter.CardCollectionAdapter;
 import com.example.ygocardsearch.before_search_fragments.UserFilterFragment;
 import com.example.ygocardsearch.card_data.CardDataList;

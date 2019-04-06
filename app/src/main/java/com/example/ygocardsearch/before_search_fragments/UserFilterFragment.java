@@ -19,7 +19,7 @@ import android.widget.Spinner;
 
 import com.example.ygocardsearch.FragmentToFragment;
 import com.example.ygocardsearch.R;
-import com.example.ygocardsearch.SharedPref.FilterSharedPreference;
+import com.example.ygocardsearch.sharedPref.FilterSharedPreference;
 
 /**
  * A simple {@link Fragment} subclass.

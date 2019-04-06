@@ -15,7 +15,7 @@ import android.widget.EditText;
 
 import com.example.ygocardsearch.FragmentToFragment;
 import com.example.ygocardsearch.R;
-import com.example.ygocardsearch.SharedPref.FilterSharedPreference;
+import com.example.ygocardsearch.sharedPref.FilterSharedPreference;
 
 public class CardSearchFragment extends Fragment {
     String TAG = "FINDME";

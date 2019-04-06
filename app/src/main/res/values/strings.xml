@@ -54,7 +54,7 @@
         <item>WATER</item>
         <item>WIND</item>
     </string-array>
-    
+
     <string-array name="spell_type">
         <item>None</item>
         <item>Normal</item>
@@ -64,12 +64,17 @@
         <item>Quick-Play</item>
         <item>Ritual</item>
     </string-array>
-    
+
     <string-array name="trap_type">
         <item>None</item>
         <item>Normal</item>
         <item>Continuous</item>
         <item>Counter</item>
     </string-array>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="app_intro">Pot of Cards</string>
+    <string name="no_search_text">Sad Kuriboh is sad because there were no results for the card you want, check your FILTERS or the card you TYPED.</string>
 
 </resources>

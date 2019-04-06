@@ -1,21 +1,15 @@
 package com.example.ygocardsearch.card_data;
 
-import android.content.Context;
 import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
-import com.example.ygocardsearch.SharedPref.FilterSharedPreference;
+import com.example.ygocardsearch.sharedPref.FilterSharedPreference;
 import com.example.ygocardsearch.model.CardModel;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-import io.reactivex.Observable;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
 
 public class CardDataList {
     private static final String SPELL_CARD = "Spell Card";
