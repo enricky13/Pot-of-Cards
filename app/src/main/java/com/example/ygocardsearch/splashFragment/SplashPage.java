@@ -49,7 +49,7 @@ public class SplashPage extends Fragment {
         countDownTimerForLaunch = new CountDownTimer(5000,1000) {
             @Override
             public void onTick(long millisUntilFinished) {
-
+                // No - Op
             }
 
             @Override
