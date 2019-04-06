@@ -1,21 +1,15 @@
 package com.example.ygocardsearch.card_data;
 
-import android.content.Context;
 import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
-import com.example.ygocardsearch.SharedPref.FilterSharedPreference;
+import com.example.ygocardsearch.sharedPref.FilterSharedPreference;
 import com.example.ygocardsearch.model.CardModel;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-import io.reactivex.Observable;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
 
 public class CardDataList {
     private static final String SPELL_CARD = "Spell Card";
@@ -23,14 +17,19 @@ public class CardDataList {
     private static String TAG = "FINDME";
     private static String userInputLowerCase;
     private static List<CardModel> cardModelList;
+    private static List<CardModel> filteredList;
 
     public static void convertToList(@NonNull CardModel[][] networkData) {
         cardModelList = new ArrayList<>();
         cardModelList.addAll(Arrays.asList(networkData[0]));
     }
 
-    public static List<CardModel> getFilteredList(SharedPreferences sharedPreferences, String userInput) {
-        List<CardModel> filteredList = new ArrayList<>();
+    public static List<CardModel> getFilteredList() {
+        return filteredList;
+    }
+
+    public static void makeFilteredList(SharedPreferences sharedPreferences, String userInput) {
+        filteredList = new ArrayList<>();
 
         boolean isMonster = false;
         boolean isSpell = false;
@@ -51,9 +50,12 @@ public class CardDataList {
         if (userInput != null) {
             userInputLowerCase = userInput.toLowerCase().trim().replaceAll(" +", " ").replaceAll("-", " ");   // Word is minimized to 1 space only but only if there are letters following
         }
-        Log.d(TAG, "getFilteredList: " + userInput);
-        Log.d(TAG, "getFilteredList: " + monsterType);
-        Log.d(TAG, "getFilteredList: " + monsterAttribute);
+        Log.d(TAG, "makeFilteredList: " + userInput);
+        Log.d(TAG, "makeFilteredList: " + monsterType);
+        Log.d(TAG, "makeFilteredList: " + monsterAttribute);
+        Log.d(TAG, "makeFilteredList: " + isMonster);
+        Log.d(TAG, "makeFilteredList: " + isSpell);
+        Log.d(TAG, "makeFilteredList: " + isTrap);
 
         for (CardModel card : cardModelList) {
             String cardName = card.getName().toLowerCase().replaceAll("-", " ");
@@ -62,12 +64,24 @@ public class CardDataList {
             if (isMonster) {
                 if (card.getAtk() != null) {                 // Verifies if the card is a monster card only
                     if (monsterType == null && monsterAttribute == null) {          // Accounts if both spinners are null
-                        if (inputNullChecker(userInput, filteredList, card, cardName, cardDesc))
+                        if (inputNullChecker(userInput, filteredList, card, cardName, cardDesc)){
                             continue;
+                        }
+                        continue;
+                    }
+                    if (monsterType != null && monsterAttribute != null ){
+                        if (card.getRace().contains(monsterType) && card.getAttribute().contains(monsterAttribute)){
+                            if (inputNullChecker(userInput,filteredList,card,cardName,cardDesc)){
+                                continue;
+                            }
+                        }
+                        continue;
                     }
                     if ((monsterType != null && card.getRace().contains(monsterType)) || (monsterAttribute != null && card.getAttribute().contains(monsterAttribute))) {
-                        if (inputNullChecker(userInput, filteredList, card, cardName, cardDesc))
-                        continue;
+                        Log.d(TAG, "makeFilteredList: Code shouldn't get to here");
+                        if (inputNullChecker(userInput, filteredList, card, cardName, cardDesc)){
+                            continue;
+                        }
                     }
                 }
             }
@@ -95,7 +109,6 @@ public class CardDataList {
                 }
             }
         }
-        return filteredList;
     }
 
     private static boolean inputNullChecker(String userInput, List<CardModel> filteredList, CardModel card, String cardName, String cardDesc) {

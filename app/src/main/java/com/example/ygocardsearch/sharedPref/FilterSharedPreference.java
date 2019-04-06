@@ -1,9 +1,6 @@
-package com.example.ygocardsearch.SharedPref;
+package com.example.ygocardsearch.sharedPref;
 
-import android.content.Context;
 import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
-import android.util.Log;
 
 public class FilterSharedPreference {
     public static final String MONSTER_CARD_KEY = "isMonsterCard";

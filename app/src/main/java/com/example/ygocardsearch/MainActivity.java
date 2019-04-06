@@ -9,12 +9,14 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.example.ygocardsearch.before_search_fragments.UserFilterFragment;
+import com.example.ygocardsearch.card_data.CardDataList;
 import com.example.ygocardsearch.network.CardNetworkCallSingleton;
 import com.example.ygocardsearch.search_result_fragments.CardCollectionFragment;
 import com.example.ygocardsearch.search_result_fragments.MonsterCardFragment;
 import com.example.ygocardsearch.before_search_fragments.CardSearchFragment;
 import com.example.ygocardsearch.before_search_fragments.UserChoosesFragment;
 import com.example.ygocardsearch.model.CardModel;
+import com.example.ygocardsearch.search_result_fragments.NoSearchResultFragment;
 import com.example.ygocardsearch.search_result_fragments.SpellTrapCardFragment;
 
 public class MainActivity extends AppCompatActivity implements FragmentToFragment {
@@ -47,10 +49,15 @@ public class MainActivity extends AppCompatActivity implements FragmentToFragmen
 
     @Override
     public void goToCardCollectionFragment(String userInput) {
-        if (userInput == null) {
-            CardCollectionFragment cardCollectionFragment = CardCollectionFragment.newInstance(null);
-            inflateFragment(cardCollectionFragment, true);
-        } else {
+        if (CardDataList.getFilteredList().size() == 0) {
+            Log.d("FINDME", "goToCardCollectionFragment: No Search Results");
+            NoSearchResultFragment noSearchResultFragment = NoSearchResultFragment.newInstance();
+            inflateFragment(noSearchResultFragment,true);
+        } else if (userInput == null){
+            CardCollectionFragment cardCollectionFragment = CardCollectionFragment.newInstance(userInput);
+            inflateFragment(cardCollectionFragment,true);
+        }
+        else {
             Log.d("FINDME", "User Has Inputted ");
             CardCollectionFragment cardCollectionFragment = CardCollectionFragment.newInstance(userInput);
             inflateFragment(cardCollectionFragment, true);

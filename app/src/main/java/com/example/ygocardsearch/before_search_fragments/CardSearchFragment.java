@@ -6,7 +6,10 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +18,8 @@ import android.widget.EditText;
 
 import com.example.ygocardsearch.FragmentToFragment;
 import com.example.ygocardsearch.R;
-import com.example.ygocardsearch.SharedPref.FilterSharedPreference;
+import com.example.ygocardsearch.card_data.CardDataList;
+import com.example.ygocardsearch.sharedPref.FilterSharedPreference;
 
 public class CardSearchFragment extends Fragment {
     String TAG = "FINDME";
@@ -23,6 +27,7 @@ public class CardSearchFragment extends Fragment {
     private Button goTofilterButton;
     private Button goToCardCollectionButton;
     private FragmentToFragment fragToFragListener;
+    SharedPreferences sharedPreferences;
     View rootView;
 
     public CardSearchFragment() {
@@ -40,7 +45,7 @@ public class CardSearchFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        SharedPreferences sharedPreferences = getContext().getSharedPreferences(UserFilterFragment.SHARED_PREF_KEY,Context.MODE_PRIVATE);
+        sharedPreferences = getContext().getSharedPreferences(UserFilterFragment.SHARED_PREF_KEY,Context.MODE_PRIVATE);
         rootView = inflater.inflate(R.layout.fragment_card_search, container, false);
         goTofilterButton = rootView.findViewById(R.id.go_to_filter_button);
         goToCardCollectionButton = rootView.findViewById(R.id.go_to_card_collection_button);
@@ -55,6 +60,29 @@ public class CardSearchFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        searchCardEt.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                // Stops the user from making a new line in the edit text
+                for(int i = s.length(); i > 0; i--) {
+
+                    if(s.subSequence(i-1, i).toString().equals("\n"))
+                        s.replace(i-1, i, "");
+                }
+
+            }
+        });
+
         goTofilterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -66,9 +94,11 @@ public class CardSearchFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (searchCardEt.getText().toString().trim().length() < 1){
+                    CardDataList.makeFilteredList(sharedPreferences,null);
                     fragToFragListener.goToCardCollectionFragment(null);
                 }
                 else {
+                    CardDataList.makeFilteredList(sharedPreferences,searchCardEt.getText().toString());
                     String userInput = searchCardEt.getText().toString();
                     fragToFragListener.goToCardCollectionFragment(userInput);
                 }
