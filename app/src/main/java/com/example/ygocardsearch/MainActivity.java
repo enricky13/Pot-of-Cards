@@ -1,17 +1,22 @@
 package com.example.ygocardsearch;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
 
 import com.example.ygocardsearch.before_search_fragments.UserFilterFragment;
 import com.example.ygocardsearch.card_data.CardDataList;
-import com.example.ygocardsearch.network.CardNetworkCallSingleton;
-import com.example.ygocardsearch.network.ImplicitErrorNetworkCallSingleton;
+import com.example.ygocardsearch.network.CardNetworkCall;
 import com.example.ygocardsearch.search_result_fragments.CardCollectionFragment;
 import com.example.ygocardsearch.search_result_fragments.MonsterCardFragment;
 import com.example.ygocardsearch.before_search_fragments.CardSearchFragment;
@@ -21,14 +26,17 @@ import com.example.ygocardsearch.search_result_fragments.NoSearchResultFragment;
 import com.example.ygocardsearch.search_result_fragments.SpellTrapCardFragment;
 import com.example.ygocardsearch.splashFragment.SplashPage;
 
-public class MainActivity extends AppCompatActivity implements FragmentToFragment {
+public class MainActivity extends AppCompatActivity implements FragmentBackgroundWork {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        CardNetworkCallSingleton.setupCardDataList();
 
+        if (!isInternetOn()){
+            Toast.makeText(this, "Provide Internet Connection for best experience", Toast.LENGTH_SHORT).show();
+        }
+        CardNetworkCall.setupCardDataList(this);
         inflateFragment(SplashPage.newInstance());
     }
 
@@ -97,5 +105,26 @@ public class MainActivity extends AppCompatActivity implements FragmentToFragmen
     public void startAppFragment() {
         UserChoosesFragment userChoosesFragment = UserChoosesFragment.newInstance();
         inflateFragment(userChoosesFragment);
+    }
+
+    @Override
+    public boolean isInternetOn() {
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfoMobile = cm.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+        NetworkInfo netInfoWifi = cm.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+        if (netInfoMobile != null && netInfoMobile.isConnectedOrConnecting()) {
+            Log.v("TAG", "Mobile Internet connected");
+            return true;
+        }
+        if (netInfoWifi != null && netInfoWifi.isConnectedOrConnecting()) {
+            Log.v("TAG", "Wifi Internet connected");
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public void restartCardDownload(Button button, int textForSuccess) {
+        CardNetworkCall.setupCardDataList(button, textForSuccess);
     }
 }

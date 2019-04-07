@@ -8,13 +8,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.ygocardsearch.R;
-import com.example.ygocardsearch.FragmentToFragment;
+import com.example.ygocardsearch.FragmentBackgroundWork;
 import com.example.ygocardsearch.model.CardModel;
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 public class CardCollectionViewHolder extends RecyclerView.ViewHolder {
     private static final String SPELL_CARD = "Spell Card";
@@ -30,13 +28,13 @@ public class CardCollectionViewHolder extends RecyclerView.ViewHolder {
     private String[] effectMonsters = {"Flip Effect Monster","Effect Monster","Tuner Monster","Gemini Monster","Spirit Monster","Toon Monster","Union Effect Monster","Union Tuner Effect Monster"};
     private TextView cardNameTv;
     private ImageView cardImageIv;
-    private FragmentToFragment fragmentToFragment;
+    private FragmentBackgroundWork fragmentBackgroundWork;
 
-    public CardCollectionViewHolder(@NonNull View itemView, FragmentToFragment fragmentToFragment) {
+    public CardCollectionViewHolder(@NonNull View itemView, FragmentBackgroundWork fragmentBackgroundWork) {
         super(itemView);
         cardNameTv = itemView.findViewById(R.id.card_name);
         cardImageIv = itemView.findViewById(R.id.card_image);
-        this.fragmentToFragment = fragmentToFragment;
+        this.fragmentBackgroundWork = fragmentBackgroundWork;
     }
 
     public void onBind(final CardModel cardModel){
@@ -46,7 +44,7 @@ public class CardCollectionViewHolder extends RecyclerView.ViewHolder {
                 .into(cardImageIv);
         setBackgroundToCorrectColor(cardModel);
 
-        itemView.setOnClickListener(v -> fragmentToFragment.gotToCorrectCardFragment(cardModel));
+        itemView.setOnClickListener(v -> fragmentBackgroundWork.gotToCorrectCardFragment(cardModel));
     }
 
     private void setBackgroundToCorrectColor(CardModel cardModel) {

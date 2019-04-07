@@ -24,6 +24,10 @@ public class CardDataList {
         cardModelList.addAll(Arrays.asList(networkData[0]));
     }
 
+    public static List<CardModel> getCardModelList() {
+        return cardModelList;
+    }
+
     public static List<CardModel> getFilteredList() {
         return filteredList;
     }

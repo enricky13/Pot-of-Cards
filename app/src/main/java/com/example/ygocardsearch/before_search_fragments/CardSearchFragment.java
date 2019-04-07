@@ -9,14 +9,14 @@ import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
-import com.example.ygocardsearch.FragmentToFragment;
+import com.example.ygocardsearch.FragmentBackgroundWork;
 import com.example.ygocardsearch.R;
 import com.example.ygocardsearch.card_data.CardDataList;
 import com.example.ygocardsearch.sharedPref.FilterSharedPreference;
@@ -26,7 +26,7 @@ public class CardSearchFragment extends Fragment {
     private EditText searchCardEt;
     private Button goTofilterButton;
     private Button goToCardCollectionButton;
-    private FragmentToFragment fragToFragListener;
+    private FragmentBackgroundWork fragToFragListener;
     SharedPreferences sharedPreferences;
     View rootView;
 
@@ -59,6 +59,9 @@ public class CardSearchFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        if (CardDataList.getCardModelList() == null){
+            goToCardCollectionButton.setText(getString(R.string.re_download));
+        }
 
         searchCardEt.addTextChangedListener(new TextWatcher() {
             @Override
@@ -86,21 +89,27 @@ public class CardSearchFragment extends Fragment {
         goTofilterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                fragToFragListener.goToUserFilter();
+                    fragToFragListener.goToUserFilter();
+
             }
         });
 
         goToCardCollectionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (searchCardEt.getText().toString().trim().length() < 1){
-                    CardDataList.makeFilteredList(sharedPreferences,null);
-                    fragToFragListener.goToCardCollectionFragment(null);
+                if (CardDataList.getCardModelList() != null) {
+
+                    if (searchCardEt.getText().toString().trim().length() < 1) {
+                        CardDataList.makeFilteredList(sharedPreferences, null);
+                        fragToFragListener.goToCardCollectionFragment(null);
+                    } else {
+                        CardDataList.makeFilteredList(sharedPreferences, searchCardEt.getText().toString());
+                        String userInput = searchCardEt.getText().toString();
+                        fragToFragListener.goToCardCollectionFragment(userInput);
+                    }
                 }
                 else {
-                    CardDataList.makeFilteredList(sharedPreferences,searchCardEt.getText().toString());
-                    String userInput = searchCardEt.getText().toString();
-                    fragToFragListener.goToCardCollectionFragment(userInput);
+                    fragToFragListener.restartCardDownload(goToCardCollectionButton, R.string.start_search_text);
                 }
             }
         });
@@ -109,7 +118,7 @@ public class CardSearchFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        fragToFragListener = (FragmentToFragment) context;
+        fragToFragListener = (FragmentBackgroundWork) context;
     }
 
     @Override

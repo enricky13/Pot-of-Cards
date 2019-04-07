@@ -17,7 +17,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.Spinner;
 
-import com.example.ygocardsearch.FragmentToFragment;
+import com.example.ygocardsearch.FragmentBackgroundWork;
 import com.example.ygocardsearch.R;
 import com.example.ygocardsearch.sharedPref.FilterSharedPreference;
 
@@ -34,7 +34,7 @@ public class UserFilterFragment extends Fragment implements AdapterView.OnItemSe
     private Spinner monsterTypeSpinner, monsterAttributeSpinner, spellTypeSpinner, trapTypeSpinner;
     private boolean isMonster, isSpell, isTrap;
     private String monsterType, monsterAttribute, spellType, trapType;
-    private FragmentToFragment fragmentToFragment;
+    private FragmentBackgroundWork fragmentBackgroundWork;
     private SharedPreferences sharedPreferences;
 
     public UserFilterFragment() {
@@ -115,7 +115,7 @@ public class UserFilterFragment extends Fragment implements AdapterView.OnItemSe
                 FilterSharedPreference.addSpellFilterToSharedPref(sharedPreferences, spellType, spellTypeSpinnerPosition);
                 FilterSharedPreference.addTrapFilterToSharedPref(sharedPreferences, trapType, trapTypeSpinnerPosition);
 
-                fragmentToFragment.goToCardSearchFragment();
+                fragmentBackgroundWork.goToCardSearchFragment();
             }
         });
     }
@@ -123,14 +123,14 @@ public class UserFilterFragment extends Fragment implements AdapterView.OnItemSe
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        fragmentToFragment = (FragmentToFragment) context;
+        fragmentBackgroundWork = (FragmentBackgroundWork) context;
         sharedPreferences = context.getSharedPreferences(SHARED_PREF_KEY, Context.MODE_PRIVATE);
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
-        fragmentToFragment = null;
+        fragmentBackgroundWork = null;
     }
 
     private void findViews() {
