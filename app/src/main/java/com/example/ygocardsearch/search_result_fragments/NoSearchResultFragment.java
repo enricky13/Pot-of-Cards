@@ -15,7 +15,6 @@ import com.bumptech.glide.Glide;
 import com.example.ygocardsearch.R;
 
 public class NoSearchResultFragment extends Fragment {
-    private ImageView sadKuribohImage;
 
     public static NoSearchResultFragment newInstance() {
         NoSearchResultFragment noSearchResultFragment = new NoSearchResultFragment();

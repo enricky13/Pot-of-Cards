@@ -11,6 +11,7 @@ import android.util.Log;
 import com.example.ygocardsearch.before_search_fragments.UserFilterFragment;
 import com.example.ygocardsearch.card_data.CardDataList;
 import com.example.ygocardsearch.network.CardNetworkCallSingleton;
+import com.example.ygocardsearch.network.ImplicitErrorNetworkCallSingleton;
 import com.example.ygocardsearch.search_result_fragments.CardCollectionFragment;
 import com.example.ygocardsearch.search_result_fragments.MonsterCardFragment;
 import com.example.ygocardsearch.before_search_fragments.CardSearchFragment;
@@ -18,6 +19,7 @@ import com.example.ygocardsearch.before_search_fragments.UserChoosesFragment;
 import com.example.ygocardsearch.model.CardModel;
 import com.example.ygocardsearch.search_result_fragments.NoSearchResultFragment;
 import com.example.ygocardsearch.search_result_fragments.SpellTrapCardFragment;
+import com.example.ygocardsearch.splashFragment.SplashPage;
 
 public class MainActivity extends AppCompatActivity implements FragmentToFragment {
 
@@ -27,7 +29,7 @@ public class MainActivity extends AppCompatActivity implements FragmentToFragmen
         setContentView(R.layout.activity_main);
         CardNetworkCallSingleton.setupCardDataList();
 
-        inflateFragment(UserChoosesFragment.newInstance());
+        inflateFragment(SplashPage.newInstance());
     }
 
     private void inflateFragment(Fragment fragment) {
@@ -89,5 +91,11 @@ public class MainActivity extends AppCompatActivity implements FragmentToFragmen
         Intent webIntent = new Intent(Intent.ACTION_VIEW);
         webIntent.setData(Uri.parse(cardRulingWebsite + cardName));
         startActivity(webIntent);
+    }
+
+    @Override
+    public void startAppFragment() {
+        UserChoosesFragment userChoosesFragment = UserChoosesFragment.newInstance();
+        inflateFragment(userChoosesFragment);
     }
 }
