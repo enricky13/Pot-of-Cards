@@ -11,6 +11,7 @@ import android.util.Log;
 import com.example.ygocardsearch.before_search_fragments.UserFilterFragment;
 import com.example.ygocardsearch.card_data.CardDataList;
 import com.example.ygocardsearch.network.CardNetworkCallSingleton;
+import com.example.ygocardsearch.network.ImplicitErrorNetworkCallSingleton;
 import com.example.ygocardsearch.search_result_fragments.CardCollectionFragment;
 import com.example.ygocardsearch.search_result_fragments.MonsterCardFragment;
 import com.example.ygocardsearch.before_search_fragments.CardSearchFragment;

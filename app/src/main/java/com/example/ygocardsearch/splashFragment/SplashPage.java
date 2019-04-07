@@ -7,6 +7,7 @@ import android.os.CountDownTimer;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,17 +50,59 @@ public class SplashPage extends Fragment {
         countDownTimerForLaunch = new CountDownTimer(5000,1000) {
             @Override
             public void onTick(long millisUntilFinished) {
-                // No - Op
+                // No-Op
             }
-
             @Override
             public void onFinish() {
                 fragmentToFragment.startAppFragment();
             }
         };//Dont forget to .start to countdown
-        Animation animation = AnimationUtils.loadAnimation(getContext(),R.anim.flip_animation);
-        splashImage.startAnimation(animation);
+        Animation animationClose = AnimationUtils.loadAnimation(getContext(),R.anim.flip_animation);
+        Animation animationOpen = AnimationUtils.loadAnimation(getContext(),R.anim.flip_animation2);
 
+        final int[] repeatCount = {0};
+
+        animationClose.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                //Restarts the animationClose from the beggining
+                splashImage.startAnimation(animationOpen);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+        animationOpen.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+                if (repeatCount[0] == 0){
+                    splashImage.setImageDrawable(ContextCompat.getDrawable(getContext(),R.drawable.cyber_dragon_card));
+                }
+                if (repeatCount[0] == 1){
+                    splashImage.setImageDrawable(ContextCompat.getDrawable(getContext(),R.drawable.time_wizard));
+                }
+                repeatCount[0]++;
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                splashImage.startAnimation(animationClose);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+
+        splashImage.startAnimation(animationClose);
         countDownTimerForLaunch.start();
     }
 

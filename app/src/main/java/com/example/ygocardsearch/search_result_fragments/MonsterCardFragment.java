@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.example.ygocardsearch.FragmentToFragment;
 import com.example.ygocardsearch.R;
 import com.example.ygocardsearch.model.CardModel;
+import com.example.ygocardsearch.network.ImplicitErrorNetworkCallSingleton;
 import com.squareup.picasso.Picasso;
 
 /**
@@ -23,6 +24,7 @@ import com.squareup.picasso.Picasso;
  */
 public class MonsterCardFragment extends Fragment {
     public static final String CARD_MODEL = "CardModel";
+    private String website = "https://yugioh.fandom.com/wiki/Card_Rulings:";
     private TextView cardName, cardLevel, cardAtk, cardDef, cardDesc;
     private Button cardRulingsButton;
     private ImageView cardImg;
@@ -56,12 +58,14 @@ public class MonsterCardFragment extends Fragment {
         cardDesc = rootView.findViewById(R.id.card_desc_card_description);
         cardImg = rootView.findViewById(R.id.card_image_card_description);
         cardRulingsButton = rootView.findViewById(R.id.go_to_card_rulings_button);
+        ImplicitErrorNetworkCallSingleton.getInstance(website+cardModel.getName(), cardRulingsButton);
         return rootView;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
         cardName.setText(cardModel.getName());
         cardLevel.setText(cardModel.getLevel());
         cardAtk.setText(cardModel.getAtk());
