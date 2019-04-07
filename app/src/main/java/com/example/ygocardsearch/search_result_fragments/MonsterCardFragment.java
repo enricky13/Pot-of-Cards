@@ -13,7 +13,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.ygocardsearch.FragmentToFragment;
+import com.example.ygocardsearch.FragmentBackgroundWork;
 import com.example.ygocardsearch.R;
 import com.example.ygocardsearch.model.CardModel;
 import com.example.ygocardsearch.network.ImplicitErrorNetworkCallSingleton;
@@ -29,7 +29,7 @@ public class MonsterCardFragment extends Fragment {
     private Button cardRulingsButton;
     private ImageView cardImg;
     private CardModel cardModel;
-    private FragmentToFragment fragmentToFragment;
+    private FragmentBackgroundWork fragmentBackgroundWork;
     View rootView;
 
 
@@ -58,6 +58,7 @@ public class MonsterCardFragment extends Fragment {
         cardDesc = rootView.findViewById(R.id.card_desc_card_description);
         cardImg = rootView.findViewById(R.id.card_image_card_description);
         cardRulingsButton = rootView.findViewById(R.id.go_to_card_rulings_button);
+        //Checks if the network call delivers a 404 error, if it does it hides the button
         ImplicitErrorNetworkCallSingleton.getInstance(website+cardModel.getName(), cardRulingsButton);
         return rootView;
     }
@@ -77,7 +78,7 @@ public class MonsterCardFragment extends Fragment {
         cardRulingsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                fragmentToFragment.goToCardRulings(cardModel.getName());
+                fragmentBackgroundWork.goToCardRulings(cardModel.getName());
             }
         });
     }
@@ -85,7 +86,7 @@ public class MonsterCardFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        fragmentToFragment = (FragmentToFragment) context;
+        fragmentBackgroundWork = (FragmentBackgroundWork) context;
         if (cardModel == null){
             cardModel = (CardModel) getArguments().getSerializable(CARD_MODEL);
         }
@@ -94,6 +95,6 @@ public class MonsterCardFragment extends Fragment {
     @Override
     public void onDetach() {
         super.onDetach();
-        fragmentToFragment = null;
+        fragmentBackgroundWork = null;
     }
 }

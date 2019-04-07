@@ -11,7 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import com.example.ygocardsearch.FragmentToFragment;
+import com.example.ygocardsearch.FragmentBackgroundWork;
 import com.example.ygocardsearch.R;
 
 /**
@@ -20,7 +20,7 @@ import com.example.ygocardsearch.R;
 public class UserChoosesFragment extends Fragment {
     private Button goToLifePoint;
     private Button goToCardSearch;
-    private FragmentToFragment fragtofraglistener;
+    private FragmentBackgroundWork fragtofraglistener;
     View rootView;
 
 
@@ -58,7 +58,7 @@ public class UserChoosesFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        fragtofraglistener = (FragmentToFragment) context;
+        fragtofraglistener = (FragmentBackgroundWork) context;
     }
 
     @Override

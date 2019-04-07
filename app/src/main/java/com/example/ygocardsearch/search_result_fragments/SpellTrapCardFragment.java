@@ -13,7 +13,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.ygocardsearch.FragmentToFragment;
+import com.example.ygocardsearch.FragmentBackgroundWork;
 import com.example.ygocardsearch.R;
 import com.example.ygocardsearch.model.CardModel;
 import com.squareup.picasso.Picasso;
@@ -27,7 +27,7 @@ public class SpellTrapCardFragment extends Fragment {
     private Button goToCardRulingsButton;
     private ImageView cardImg;
     private CardModel cardModel;
-    private FragmentToFragment fragmentToFragment;
+    private FragmentBackgroundWork fragmentBackgroundWork;
     View rootView;
 
 
@@ -67,7 +67,7 @@ public class SpellTrapCardFragment extends Fragment {
         goToCardRulingsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                fragmentToFragment.goToCardRulings(cardModel.getName());
+                fragmentBackgroundWork.goToCardRulings(cardModel.getName());
             }
         });
     }
@@ -75,7 +75,7 @@ public class SpellTrapCardFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        fragmentToFragment = (FragmentToFragment) context;
+        fragmentBackgroundWork = (FragmentBackgroundWork) context;
         if (getArguments() != null){
             cardModel = (CardModel) getArguments().getSerializable(CARDMODEL);
         }
@@ -85,6 +85,6 @@ public class SpellTrapCardFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         cardModel = null;
-        fragmentToFragment = null;
+        fragmentBackgroundWork = null;
     }
 }

@@ -15,7 +15,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
-import com.example.ygocardsearch.FragmentToFragment;
+import com.example.ygocardsearch.FragmentBackgroundWork;
 import com.example.ygocardsearch.R;
 
 /**
@@ -24,7 +24,7 @@ import com.example.ygocardsearch.R;
 public class SplashPage extends Fragment {
     private ImageView splashImage;
     private CountDownTimer countDownTimerForLaunch;
-    private FragmentToFragment fragmentToFragment;
+    private FragmentBackgroundWork fragmentBackgroundWork;
 
     public SplashPage() {
         // Required empty public constructor
@@ -54,7 +54,7 @@ public class SplashPage extends Fragment {
             }
             @Override
             public void onFinish() {
-                fragmentToFragment.startAppFragment();
+                fragmentBackgroundWork.startAppFragment();
             }
         };//Dont forget to .start to countdown
         Animation animationClose = AnimationUtils.loadAnimation(getContext(),R.anim.flip_animation);
@@ -109,12 +109,12 @@ public class SplashPage extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        fragmentToFragment = (FragmentToFragment) context;
+        fragmentBackgroundWork = (FragmentBackgroundWork) context;
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
-        fragmentToFragment = null;
+        fragmentBackgroundWork = null;
     }
 }
