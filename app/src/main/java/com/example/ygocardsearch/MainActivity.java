@@ -10,11 +10,13 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.ygocardsearch.before_search_fragments.UserFilterFragment;
 import com.example.ygocardsearch.card_data.CardDataList;
-import com.example.ygocardsearch.network.CardNetworkCallSingleton;
+import com.example.ygocardsearch.network.CardNetworkCall;
 import com.example.ygocardsearch.search_result_fragments.CardCollectionFragment;
 import com.example.ygocardsearch.search_result_fragments.MonsterCardFragment;
 import com.example.ygocardsearch.before_search_fragments.CardSearchFragment;
@@ -31,13 +33,10 @@ public class MainActivity extends AppCompatActivity implements FragmentBackgroun
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        if (isInternetOn()){
-            CardNetworkCallSingleton.setupCardDataList();
-        }
-        else {
+        if (!isInternetOn()){
             Toast.makeText(this, "Provide Internet Connection for best experience", Toast.LENGTH_SHORT).show();
         }
-
+        CardNetworkCall.setupCardDataList(this);
         inflateFragment(SplashPage.newInstance());
     }
 
@@ -125,7 +124,7 @@ public class MainActivity extends AppCompatActivity implements FragmentBackgroun
     }
 
     @Override
-    public void restartCardDownload() {
-        CardNetworkCallSingleton.setupCardDataList();
+    public void restartCardDownload(Button button, int textForSuccess) {
+        CardNetworkCall.setupCardDataList(button, textForSuccess);
     }
 }

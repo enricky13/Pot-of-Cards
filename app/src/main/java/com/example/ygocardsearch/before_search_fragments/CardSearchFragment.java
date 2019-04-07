@@ -59,6 +59,9 @@ public class CardSearchFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        if (CardDataList.getCardModelList() == null){
+            goToCardCollectionButton.setText(getString(R.string.re_download));
+        }
 
         searchCardEt.addTextChangedListener(new TextWatcher() {
             @Override
@@ -94,7 +97,7 @@ public class CardSearchFragment extends Fragment {
         goToCardCollectionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (fragToFragListener.isInternetOn()) {
+                if (CardDataList.getCardModelList() != null) {
 
                     if (searchCardEt.getText().toString().trim().length() < 1) {
                         CardDataList.makeFilteredList(sharedPreferences, null);
@@ -106,7 +109,7 @@ public class CardSearchFragment extends Fragment {
                     }
                 }
                 else {
-                    Toast.makeText(getContext(), "No Internet Connection try again", Toast.LENGTH_SHORT).show();
+                    fragToFragListener.restartCardDownload(goToCardCollectionButton, R.string.start_search_text);
                 }
             }
         });

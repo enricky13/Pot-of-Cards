@@ -76,5 +76,6 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="app_intro">Pot of Cards</string>
     <string name="no_search_text">Sad Kuriboh is sad because there were no results for the card you want, check your FILTERS or the card you TYPED.</string>
+    <string name="re_download">Re-Download</string>
 
 </resources>
