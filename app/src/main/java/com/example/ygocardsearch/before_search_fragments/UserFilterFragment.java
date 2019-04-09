@@ -29,11 +29,11 @@ import com.example.ygocardsearch.sharedPref.FilterSharedPreference;
 public class UserFilterFragment extends Fragment implements AdapterView.OnItemSelectedListener {
     public static final String TAG = "FINDME";
     public static final String SHARED_PREF_KEY = "SHARED PREF KEY";
-    private boolean isMonster, isSpell, isTrap;
+    private boolean isMonster, isSpell, isTrap, checkForAtk;
     private int monsterTypePosition, monsterAttributePosition, spellTypeSpinnerPosition, trapTypeSpinnerPosition, atkMaxValue, atkMinValue;
     private View rootView;
     private Button applyFilterButton;
-    private CheckBox monsterCheck, spellCheck, trapCheck;
+    private CheckBox monsterCheck, spellCheck, trapCheck, atkCheck;
     private Spinner monsterTypeSpinner, monsterAttributeSpinner, spellTypeSpinner, trapTypeSpinner;
     private String monsterType, monsterAttribute, spellType, trapType;
     private EditText atkMinEditText, atkMaxEditText;
@@ -60,6 +60,7 @@ public class UserFilterFragment extends Fragment implements AdapterView.OnItemSe
             isMonster = sharedPreferences.getBoolean(FilterSharedPreference.MONSTER_CARD_KEY,false);
             isSpell = sharedPreferences.getBoolean(FilterSharedPreference.SPELL_CARD_KEY,false);
             isTrap = sharedPreferences.getBoolean(FilterSharedPreference.TRAP_CARD_KEY,false);
+            checkForAtk = sharedPreferences.getBoolean(FilterSharedPreference.CHECK_FOR_ATTACK, false);
 
             monsterType = sharedPreferences.getString(FilterSharedPreference.MONSTER_TYPE_KEY, null);
             monsterAttribute = sharedPreferences.getString(FilterSharedPreference.MONSTER_ATTRIBUTE_KEY,null);
@@ -70,13 +71,18 @@ public class UserFilterFragment extends Fragment implements AdapterView.OnItemSe
             monsterAttributePosition = sharedPreferences.getInt(FilterSharedPreference.MONSTER_ATTRIBUTE_POSITION_KEY,0);
             spellTypeSpinnerPosition = sharedPreferences.getInt(FilterSharedPreference.SPELL_TYPE_POSITION_KEY,0);
             trapTypeSpinnerPosition = sharedPreferences.getInt(FilterSharedPreference.TRAP_TYPE_POSITION_KEY,0);
+            atkMinValue = sharedPreferences.getInt(FilterSharedPreference.ATTACK_MIN_VALUE_KEY, 0);
+            atkMaxValue = sharedPreferences.getInt(FilterSharedPreference.ATTACK_MAX_VALUE_KEY, 0);
         }
-        Log.d(TAG, "Is there a value for Monster Type: "+sharedPreferences.contains(FilterSharedPreference.MONSTER_TYPE_KEY));
-        Log.d(TAG, "onCreateView: MonsterType Value: "+sharedPreferences.getString(FilterSharedPreference.MONSTER_TYPE_KEY, null)+" Monster Spinner Value: "+sharedPreferences.getInt(FilterSharedPreference.MONSTER_TYPE_POSITION_KEY, -1));
+
+        Log.d(TAG, "onCreateView: Value of Max Attack: "+atkMaxValue);
 
         monsterCheck.setChecked(isMonster);
         spellCheck.setChecked(isSpell);
         trapCheck.setChecked(isTrap);
+        atkCheck.setChecked(checkForAtk);
+        atkMinEditText.setText(Integer.toString(atkMinValue));
+        atkMaxEditText.setText(Integer.toString(atkMaxValue));
         return rootView;
     }
 
@@ -105,11 +111,19 @@ public class UserFilterFragment extends Fragment implements AdapterView.OnItemSe
                 isTrap = trapCheck.isChecked();
             }
         });
+        atkCheck.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                checkForAtk = atkCheck.isChecked();
+            }
+        });
 
         applyFilterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                atkValueChecker();
+                if (atkCheck.isChecked()){
+                    atkValueChecker();
+                }
 
 //                sharedPreferences = getContext().getSharedPreferences(SHARED_PREF_KEY, Context.MODE_PRIVATE);
                 Log.d(TAG, "onClick: Monster Type Value: "+monsterType);
@@ -117,6 +131,7 @@ public class UserFilterFragment extends Fragment implements AdapterView.OnItemSe
                 Log.d(TAG, "onClick: Monster Type Position Value: "+monsterTypePosition);
                 FilterSharedPreference.addMainCardTypeToSharedPref(sharedPreferences, isMonster, isSpell, isTrap);
                 FilterSharedPreference.addMonsterFilterToSharedPref(sharedPreferences, monsterType, monsterAttribute, monsterTypePosition, monsterAttributePosition);
+                FilterSharedPreference.addAtkValueToSharedPref(sharedPreferences, checkForAtk, atkMaxValue, atkMinValue);
                 FilterSharedPreference.addSpellFilterToSharedPref(sharedPreferences, spellType, spellTypeSpinnerPosition);
                 FilterSharedPreference.addTrapFilterToSharedPref(sharedPreferences, trapType, trapTypeSpinnerPosition);
 
@@ -147,11 +162,12 @@ public class UserFilterFragment extends Fragment implements AdapterView.OnItemSe
         monsterAttributeSpinner = rootView.findViewById(R.id.monster_attribute_spinner);
         spellTypeSpinner = rootView.findViewById(R.id.spell_type_spinner);
         trapTypeSpinner = rootView.findViewById(R.id.trap_type_spinner);
+        atkCheck = rootView.findViewById(R.id.attack_value_checkbox);
         atkMinEditText = rootView.findViewById(R.id.atk_minumum);
         atkMaxEditText = rootView.findViewById(R.id.atk_maximum);
 
         atkMinEditText.setTransformationMethod(null);
-        atkMinEditText.setTransformationMethod(null);
+        atkMaxEditText.setTransformationMethod(null);
     }
 
     public void spinnerSetup() {
@@ -182,17 +198,17 @@ public class UserFilterFragment extends Fragment implements AdapterView.OnItemSe
     }
 
     private void atkValueChecker() {
-        if (atkMaxEditText != null){
+        if (atkMaxEditText != null && !(atkMaxEditText.getText().toString().trim().length() == 0)){
             atkMaxValue = Integer.parseInt(atkMaxEditText.getText().toString());
         }
         else {
-            atkMaxValue = -1;
+            atkMaxValue = 10001;
         }
-        if (atkMinEditText != null){
+        if (atkMinEditText != null && !(atkMinEditText.getText().toString().trim().length() == 0)){
             atkMinValue = Integer.parseInt(atkMinEditText.getText().toString());
         }
         else {
-            atkMinValue = -1;
+            atkMinValue = 0;
         }
     }
 

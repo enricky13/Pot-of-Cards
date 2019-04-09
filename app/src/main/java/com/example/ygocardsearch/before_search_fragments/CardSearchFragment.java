@@ -22,7 +22,7 @@ import com.example.ygocardsearch.card_data.CardDataList;
 import com.example.ygocardsearch.sharedPref.FilterSharedPreference;
 
 public class CardSearchFragment extends Fragment {
-    String TAG = "FINDME";
+    private String TAG = "FINDME";
     private EditText searchCardEt;
     private Button goTofilterButton;
     private Button goToCardCollectionButton;

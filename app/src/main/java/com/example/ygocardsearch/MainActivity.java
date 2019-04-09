@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity implements FragmentBackgroun
 
     @Override
     public void goToCardSearchFragment() {
-        inflateFragment(CardSearchFragment.newInstance(), true);
+        inflateFragment(CardSearchFragment.newInstance());
     }
 
     @Override
