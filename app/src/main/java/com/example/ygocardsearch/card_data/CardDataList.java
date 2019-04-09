@@ -32,19 +32,19 @@ public class CardDataList {
         return filteredList;
     }
 
-    public static void makeFilteredList(SharedPreferences sharedPreferences, String userInput) {
+    public static synchronized void makeFilteredList(SharedPreferences sharedPreferences, String userInput) {
         filteredList = new ArrayList<>();
 
-        boolean isMonster = false;
-        boolean isSpell = false;
-        boolean isTrap = false;
-        boolean isAtkChecked = false;
-        int minValue = -1;
-        int maxValue = -1;
-        String monsterType = null;
-        String monsterAttribute = null;
-        String spellType = null;
-        String trapType = null;
+        boolean isMonster;
+        boolean isSpell;
+        boolean isTrap;
+        boolean isAtkChecked;
+        int minValue;
+        int maxValue;
+        String monsterType;
+        String monsterAttribute;
+        String spellType;
+        String trapType;
 
 
         isMonster = sharedPreferences.getBoolean(FilterSharedPreference.MONSTER_CARD_KEY, false);
