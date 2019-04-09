@@ -2,6 +2,7 @@ package com.example.ygocardsearch.before_search_fragments;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -15,6 +16,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.Spinner;
 
 import com.example.ygocardsearch.FragmentBackgroundWork;
@@ -27,13 +29,14 @@ import com.example.ygocardsearch.sharedPref.FilterSharedPreference;
 public class UserFilterFragment extends Fragment implements AdapterView.OnItemSelectedListener {
     public static final String TAG = "FINDME";
     public static final String SHARED_PREF_KEY = "SHARED PREF KEY";
-    private int monsterTypePosition, monsterAttributePosition, spellTypeSpinnerPosition, trapTypeSpinnerPosition;
+    private boolean isMonster, isSpell, isTrap;
+    private int monsterTypePosition, monsterAttributePosition, spellTypeSpinnerPosition, trapTypeSpinnerPosition, atkMaxValue, atkMinValue;
     private View rootView;
     private Button applyFilterButton;
     private CheckBox monsterCheck, spellCheck, trapCheck;
     private Spinner monsterTypeSpinner, monsterAttributeSpinner, spellTypeSpinner, trapTypeSpinner;
-    private boolean isMonster, isSpell, isTrap;
     private String monsterType, monsterAttribute, spellType, trapType;
+    private EditText atkMinEditText, atkMaxEditText;
     private FragmentBackgroundWork fragmentBackgroundWork;
     private SharedPreferences sharedPreferences;
 
@@ -106,6 +109,8 @@ public class UserFilterFragment extends Fragment implements AdapterView.OnItemSe
         applyFilterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                atkValueChecker();
+
 //                sharedPreferences = getContext().getSharedPreferences(SHARED_PREF_KEY, Context.MODE_PRIVATE);
                 Log.d(TAG, "onClick: Monster Type Value: "+monsterType);
                 Log.d(TAG, "onClick: Spell Type Value"+spellType);
@@ -142,6 +147,11 @@ public class UserFilterFragment extends Fragment implements AdapterView.OnItemSe
         monsterAttributeSpinner = rootView.findViewById(R.id.monster_attribute_spinner);
         spellTypeSpinner = rootView.findViewById(R.id.spell_type_spinner);
         trapTypeSpinner = rootView.findViewById(R.id.trap_type_spinner);
+        atkMinEditText = rootView.findViewById(R.id.atk_minumum);
+        atkMaxEditText = rootView.findViewById(R.id.atk_maximum);
+
+        atkMinEditText.setTransformationMethod(null);
+        atkMinEditText.setTransformationMethod(null);
     }
 
     public void spinnerSetup() {
@@ -169,6 +179,21 @@ public class UserFilterFragment extends Fragment implements AdapterView.OnItemSe
         monsterAttributeSpinner.setOnItemSelectedListener(this);
         spellTypeSpinner.setOnItemSelectedListener(this);
         trapTypeSpinner.setOnItemSelectedListener(this);
+    }
+
+    private void atkValueChecker() {
+        if (atkMaxEditText != null){
+            atkMaxValue = Integer.parseInt(atkMaxEditText.getText().toString());
+        }
+        else {
+            atkMaxValue = -1;
+        }
+        if (atkMinEditText != null){
+            atkMinValue = Integer.parseInt(atkMinEditText.getText().toString());
+        }
+        else {
+            atkMinValue = -1;
+        }
     }
 
     // Code runs through here when starting the app

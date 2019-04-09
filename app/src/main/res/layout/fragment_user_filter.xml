@@ -38,6 +38,7 @@
         android:text="@string/trap_card"
         app:layout_constraintStart_toEndOf="@id/spell_card_checkbox"
         app:layout_constraintTop_toBottomOf="@id/user_filter_intro" />
+
     <TextView
         android:id="@+id/which_monster_type"
         android:layout_width="wrap_content"
@@ -61,15 +62,52 @@
         android:layout_height="wrap_content"
         app:layout_constraintStart_toEndOf="@id/monster_type_spinner"
         app:layout_constraintTop_toBottomOf="@id/which_monster_type">
-
     </Spinner>
+
+    <TextView
+        android:id="@+id/attack_min_and_max_text"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="@string/attack_range_text"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/monster_type_spinner"/>
+
+    <EditText
+    android:id="@+id/atk_minumum"
+    android:layout_width="80dp"
+    android:layout_height="wrap_content"
+        android:singleLine="true"
+        android:inputType="numberPassword"
+        android:maxLength="5"
+        app:layout_constraintBaseline_toBaselineOf="@id/just_the_word_to"
+        app:layout_constraintStart_toEndOf="@id/attack_min_and_max_text"
+        app:layout_constraintTop_toBottomOf="@id/monster_type_spinner"/>
+
+    <TextView
+        android:id="@+id/just_the_word_to"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/to"
+        app:layout_constraintStart_toEndOf="@id/atk_minumum"
+        app:layout_constraintTop_toBottomOf="@id/monster_type_spinner"/>
+
+    <EditText
+        android:id="@+id/atk_maximum"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:singleLine="true"
+        android:inputType="numberPassword"
+        android:maxLength="5"
+        app:layout_constraintBaseline_toBaselineOf="@id/just_the_word_to"
+        app:layout_constraintStart_toEndOf="@id/just_the_word_to"
+        app:layout_constraintTop_toBottomOf="@id/monster_type_spinner"/>
 
     <TextView
         android:id="@+id/which_spell_type"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/spell_type"
-        app:layout_constraintTop_toBottomOf="@id/monster_type_spinner"
+        app:layout_constraintTop_toBottomOf="@id/atk_maximum"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
