@@ -22,7 +22,7 @@ import com.example.ygocardsearch.card_data.CardDataList;
 import com.example.ygocardsearch.sharedPref.FilterSharedPreference;
 
 public class CardSearchFragment extends Fragment {
-    String TAG = "FINDME";
+    private String TAG = "FINDME";
     private EditText searchCardEt;
     private Button goTofilterButton;
     private Button goToCardCollectionButton;
@@ -62,29 +62,6 @@ public class CardSearchFragment extends Fragment {
         if (CardDataList.getCardModelList() == null){
             goToCardCollectionButton.setText(getString(R.string.re_download));
         }
-
-        searchCardEt.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                // Stops the user from making a new line in the edit text
-                for(int i = s.length(); i > 0; i--) {
-
-                    if(s.subSequence(i-1, i).toString().equals("\n"))
-                        s.replace(i-1, i, "");
-                }
-
-            }
-        });
 
         goTofilterButton.setOnClickListener(new View.OnClickListener() {
             @Override

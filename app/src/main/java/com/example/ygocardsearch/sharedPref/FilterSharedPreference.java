@@ -14,6 +14,9 @@ public class FilterSharedPreference {
     public static final String MONSTER_ATTRIBUTE_POSITION_KEY = "MONSTER ATTRIBUTE POSITION KEY";
     public static final String SPELL_TYPE_POSITION_KEY = "SPELL TYPE POSITION KEY";
     public static final String TRAP_TYPE_POSITION_KEY = "TRAP TYPE POSITION KEY";
+    public static final String ATTACK_MAX_VALUE_KEY = "ATTACK MAX VALUE";
+    public static final String ATTACK_MIN_VALUE_KEY = "ATTACK MIN VALUE";
+    public static final String CHECK_FOR_ATTACK = "CHECK FOR ATTACK";
 
     public static void addMainCardTypeToSharedPref(SharedPreferences sharedPreferences, boolean isMonster, boolean isSpellCard, boolean isTrapCard){
         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -48,5 +51,14 @@ public class FilterSharedPreference {
                 .putString(TRAP_TYPE, trapType)
                 .putInt(TRAP_TYPE_POSITION_KEY, trapTypePosition)
                 .apply();
+    }
+
+    public static void addAtkValueToSharedPref(SharedPreferences sharedPreferences, boolean checkForAtk, int atkMaxValue, int atkMinValue){
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor
+                    .putBoolean(CHECK_FOR_ATTACK, checkForAtk)
+                .putInt(ATTACK_MAX_VALUE_KEY, atkMaxValue)
+                .putInt(ATTACK_MIN_VALUE_KEY, atkMinValue)
+                    .apply();
     }
 }

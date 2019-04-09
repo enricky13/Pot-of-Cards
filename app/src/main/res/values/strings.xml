@@ -18,7 +18,7 @@
     <string name="monster_type">Monster Type:</string>
 
     <string-array name="monster_type">
-        <item>Monster Type:</item>
+        <item>Type:</item>
         <item>Aqua</item>
         <item>Beast</item>
         <item>Beast-Warrior</item>
@@ -45,7 +45,7 @@
     </string-array>
 
     <string-array name="monster_attribute">
-        <item>Monster Attribue:</item>
+        <item>Attribue:</item>
         <item>DARK</item>
         <item>DIVINE</item>
         <item>EARTH</item>
@@ -77,5 +77,10 @@
     <string name="app_intro">Pot of Cards</string>
     <string name="no_search_text">Sad Kuriboh is sad because there were no results for the card you want, check your FILTERS or the card you TYPED.</string>
     <string name="re_download">Re-Download</string>
+    <string name="attack_range_text">Attack Range:</string>
+    <string name="to">TO</string>
+    <string name="check_attack">Check Attack?</string>
+    <string name="min">Min</string>
+    <string name="max">Max</string>
 
 </resources>
