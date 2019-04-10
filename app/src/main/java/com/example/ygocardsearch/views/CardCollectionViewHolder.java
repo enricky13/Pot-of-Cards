@@ -3,6 +3,7 @@ package com.example.ygocardsearch.views;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -10,6 +11,8 @@ import android.widget.TextView;
 import com.example.ygocardsearch.R;
 import com.example.ygocardsearch.FragmentBackgroundWork;
 import com.example.ygocardsearch.model.CardModel;
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
 import java.util.Arrays;
@@ -39,10 +42,12 @@ public class CardCollectionViewHolder extends RecyclerView.ViewHolder {
 
     public void onBind(final CardModel cardModel){
         cardNameTv.setText(cardModel.getName());
+        setBackgroundToCorrectColor(cardModel);
+
         Picasso.get()
                 .load(cardModel.getImage_url_small())
+                .placeholder(R.drawable.yugioh_card_small)
                 .into(cardImageIv);
-        setBackgroundToCorrectColor(cardModel);
 
         itemView.setOnClickListener(v -> fragmentBackgroundWork.gotToCorrectCardFragment(cardModel));
     }
