@@ -13,6 +13,7 @@ import android.util.Log;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.ygocardsearch.before_search_fragments.AboutMeFragment;
 import com.example.ygocardsearch.before_search_fragments.UserFilterFragment;
 import com.example.ygocardsearch.card_data.CardDataList;
 import com.example.ygocardsearch.network.CardNetworkCall;
@@ -125,5 +126,11 @@ public class MainActivity extends AppCompatActivity implements FragmentBackgroun
     @Override
     public void restartCardDownload(Button button, int textForSuccess) {
         CardNetworkCall.setupCardDataList(button, textForSuccess);
+    }
+
+    @Override
+    public void goToBioFragment() {
+        AboutMeFragment aboutMeFragment = AboutMeFragment.newInstance();
+        inflateFragment(aboutMeFragment, true);
     }
 }

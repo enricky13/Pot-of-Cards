@@ -83,5 +83,6 @@
     <string name="min">Min</string>
     <string name="max">Max</string>
     <string name="about_me">About Me</string>
+    <string name="reset_filter">Reset Filter</string>
 
 </resources>

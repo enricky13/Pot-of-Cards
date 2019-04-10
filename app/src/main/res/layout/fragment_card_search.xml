@@ -32,11 +32,10 @@
         android:text="@string/start_search_text"/>
 
     <android.support.design.widget.BottomNavigationView
-        android:id="@+id/navigation"
+        android:id="@+id/navigation_menu_bio"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="@color/xyzMonster"
         app:menu="@menu/bottom_navigation_menu" />
 
 </RelativeLayout>

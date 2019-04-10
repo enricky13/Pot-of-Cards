@@ -18,6 +18,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.example.ygocardsearch.FragmentBackgroundWork;
 import com.example.ygocardsearch.R;
@@ -32,7 +33,7 @@ public class UserFilterFragment extends Fragment implements AdapterView.OnItemSe
     private boolean isMonster, isSpell, isTrap, checkForAtk;
     private int monsterTypePosition, monsterAttributePosition, spellTypeSpinnerPosition, trapTypeSpinnerPosition, atkMaxValue, atkMinValue;
     private View rootView;
-    private Button applyFilterButton;
+    private Button applyFilterButton, resetFilterButton;
     private CheckBox monsterCheck, spellCheck, trapCheck, atkCheck;
     private Spinner monsterTypeSpinner, monsterAttributeSpinner, spellTypeSpinner, trapTypeSpinner;
     private String monsterType, monsterAttribute, spellType, trapType;
@@ -56,6 +57,15 @@ public class UserFilterFragment extends Fragment implements AdapterView.OnItemSe
         // Inflate the layout for this fragment
         rootView = inflater.inflate(R.layout.fragment_user_filter, container, false);
         findViews();
+        sharedPrefUpdate();
+
+        Log.d(TAG, "onCreateView: Value of Max Attack: "+atkMaxValue);
+
+        setFiltersForUser();
+        return rootView;
+    }
+
+    private void sharedPrefUpdate() {
         if (sharedPreferences != null){
             isMonster = sharedPreferences.getBoolean(FilterSharedPreference.MONSTER_CARD_KEY,false);
             isSpell = sharedPreferences.getBoolean(FilterSharedPreference.SPELL_CARD_KEY,false);
@@ -74,16 +84,19 @@ public class UserFilterFragment extends Fragment implements AdapterView.OnItemSe
             atkMinValue = sharedPreferences.getInt(FilterSharedPreference.ATTACK_MIN_VALUE_KEY, 0);
             atkMaxValue = sharedPreferences.getInt(FilterSharedPreference.ATTACK_MAX_VALUE_KEY, 0);
         }
+    }
 
-        Log.d(TAG, "onCreateView: Value of Max Attack: "+atkMaxValue);
-
+    private void setFiltersForUser() {
         monsterCheck.setChecked(isMonster);
         spellCheck.setChecked(isSpell);
         trapCheck.setChecked(isTrap);
         atkCheck.setChecked(checkForAtk);
+        monsterTypeSpinner.setSelection(monsterTypePosition);
+        monsterAttributeSpinner.setSelection(monsterAttributePosition);
+        spellTypeSpinner.setSelection(spellTypeSpinnerPosition);
+        trapTypeSpinner.setSelection(trapTypeSpinnerPosition);
         atkMinEditText.setText(Integer.toString(atkMinValue));
         atkMaxEditText.setText(Integer.toString(atkMaxValue));
-        return rootView;
     }
 
     @Override
@@ -118,24 +131,45 @@ public class UserFilterFragment extends Fragment implements AdapterView.OnItemSe
             }
         });
 
+        resetFilterButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sharedPreferences.edit().clear().apply();
+                sharedPrefUpdate();
+                setFiltersForUser();
+                isMonster = true;
+                isSpell = true;
+                isTrap = true;
+                monsterCheck.setChecked(isMonster);
+                spellCheck.setChecked(isSpell);
+                trapCheck.setChecked(isTrap);
+                Toast.makeText(getContext(), "Filter Information Deleted", Toast.LENGTH_SHORT).show();
+            }
+        });
+
         applyFilterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (atkCheck.isChecked()){
                     atkValueChecker();
                 }
+                if (!isMonster && !isSpell && !isTrap) {
+                    Toast.makeText(getContext(), "You must search at least one card type", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    Log.d(TAG, "onClick: Monster Type Value: " + monsterType);
+                    Log.d(TAG, "onClick: Spell Type Value" + spellType);
+                    Log.d(TAG, "onClick: Monster Type Position Value: " + monsterTypePosition);
+                    Log.d(TAG, "onClick: Monster Checkbox: " + monsterCheck.isChecked());
+                    FilterSharedPreference.addMainCardTypeToSharedPref(sharedPreferences, isMonster, isSpell, isTrap);
+                    FilterSharedPreference.addMonsterFilterToSharedPref(sharedPreferences, monsterType, monsterAttribute, monsterTypePosition, monsterAttributePosition);
+                    FilterSharedPreference.addAtkValueToSharedPref(sharedPreferences, checkForAtk, atkMaxValue, atkMinValue);
+                    FilterSharedPreference.addSpellFilterToSharedPref(sharedPreferences, spellType, spellTypeSpinnerPosition);
+                    FilterSharedPreference.addTrapFilterToSharedPref(sharedPreferences, trapType, trapTypeSpinnerPosition);
 
-//                sharedPreferences = getContext().getSharedPreferences(SHARED_PREF_KEY, Context.MODE_PRIVATE);
-                Log.d(TAG, "onClick: Monster Type Value: "+monsterType);
-                Log.d(TAG, "onClick: Spell Type Value"+spellType);
-                Log.d(TAG, "onClick: Monster Type Position Value: "+monsterTypePosition);
-                FilterSharedPreference.addMainCardTypeToSharedPref(sharedPreferences, isMonster, isSpell, isTrap);
-                FilterSharedPreference.addMonsterFilterToSharedPref(sharedPreferences, monsterType, monsterAttribute, monsterTypePosition, monsterAttributePosition);
-                FilterSharedPreference.addAtkValueToSharedPref(sharedPreferences, checkForAtk, atkMaxValue, atkMinValue);
-                FilterSharedPreference.addSpellFilterToSharedPref(sharedPreferences, spellType, spellTypeSpinnerPosition);
-                FilterSharedPreference.addTrapFilterToSharedPref(sharedPreferences, trapType, trapTypeSpinnerPosition);
+                    fragmentBackgroundWork.goToCardSearchFragment();
+                }
 
-                fragmentBackgroundWork.goToCardSearchFragment();
             }
         });
     }
@@ -158,6 +192,7 @@ public class UserFilterFragment extends Fragment implements AdapterView.OnItemSe
         spellCheck = rootView.findViewById(R.id.spell_card_checkbox);
         trapCheck = rootView.findViewById(R.id.trap_card_checkbox);
         applyFilterButton = rootView.findViewById(R.id.apply_filter_button);
+        resetFilterButton = rootView.findViewById(R.id.reset_filter_button);
         monsterTypeSpinner = rootView.findViewById(R.id.monster_type_spinner);
         monsterAttributeSpinner = rootView.findViewById(R.id.monster_attribute_spinner);
         spellTypeSpinner = rootView.findViewById(R.id.spell_type_spinner);
@@ -174,22 +209,18 @@ public class UserFilterFragment extends Fragment implements AdapterView.OnItemSe
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(), R.array.monster_type, R.layout.support_simple_spinner_dropdown_item);
         adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
         monsterTypeSpinner.setAdapter(adapter);
-        monsterTypeSpinner.setSelection(monsterTypePosition);
 
         adapter = ArrayAdapter.createFromResource(getContext(), R.array.monster_attribute, R.layout.support_simple_spinner_dropdown_item);
         adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
         monsterAttributeSpinner.setAdapter(adapter);
-        monsterAttributeSpinner.setSelection(monsterAttributePosition);
 
         adapter = ArrayAdapter.createFromResource(getContext(), R.array.spell_type, R.layout.support_simple_spinner_dropdown_item);
         adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
         spellTypeSpinner.setAdapter(adapter);
-        spellTypeSpinner.setSelection(spellTypeSpinnerPosition);
 
         adapter = ArrayAdapter.createFromResource(getContext(), R.array.trap_type, R.layout.support_simple_spinner_dropdown_item);
         adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
         trapTypeSpinner.setAdapter(adapter);
-        trapTypeSpinner.setSelection(trapTypeSpinnerPosition);
 
         monsterTypeSpinner.setOnItemSelectedListener(this);
         monsterAttributeSpinner.setOnItemSelectedListener(this);

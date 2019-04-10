@@ -5,11 +5,14 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.internal.BottomNavigationMenu;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -26,6 +29,7 @@ public class CardSearchFragment extends Fragment {
     private EditText searchCardEt;
     private Button goTofilterButton;
     private Button goToCardCollectionButton;
+    private BottomNavigationView goToBioBnv;
     private FragmentBackgroundWork fragToFragListener;
     SharedPreferences sharedPreferences;
     View rootView;
@@ -50,6 +54,7 @@ public class CardSearchFragment extends Fragment {
         goTofilterButton = rootView.findViewById(R.id.go_to_filter_button);
         goToCardCollectionButton = rootView.findViewById(R.id.go_to_card_collection_button);
         searchCardEt = rootView.findViewById(R.id.user_card_search);
+        goToBioBnv = rootView.findViewById(R.id.navigation_menu_bio);
 
         Log.d(TAG, "onCreateView: "+sharedPreferences.getString(FilterSharedPreference.MONSTER_ATTRIBUTE_KEY,null));
 
@@ -88,6 +93,14 @@ public class CardSearchFragment extends Fragment {
                 else {
                     fragToFragListener.restartCardDownload(goToCardCollectionButton, R.string.start_search_text);
                 }
+            }
+        });
+
+        goToBioBnv.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                fragToFragListener.goToBioFragment();
+                return true;
             }
         });
     }
