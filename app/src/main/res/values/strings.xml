@@ -82,5 +82,6 @@
     <string name="check_attack">Check Attack?</string>
     <string name="min">Min</string>
     <string name="max">Max</string>
+    <string name="about_me">About Me</string>
 
 </resources>
