@@ -15,4 +15,7 @@ public interface FragmentBackgroundWork {
     void startAppFragment();
     boolean isInternetOn();
     void restartCardDownload(Button button, int textForSuccess);
+    void goToBioFragment();
+    void goToLinkedIn();
+    void goToGithub();
 }

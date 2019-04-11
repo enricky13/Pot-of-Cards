@@ -1,34 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:background="#ffffff"
     tools:context=".before_search_fragments.CardSearchFragment">
+
+    <TextView
+        android:id="@+id/starter_text"
+        android:layout_alignParentTop="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/text_color"
+        android:text="@string/dont_know_text"/>
 
     <EditText
         android:id="@+id/user_card_search"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:singleLine="true"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_below="@id/starter_text"
         android:hint="@string/hint_user_card_search"
+        android:textColorHint="@color/text_color"
+        android:textColor="@color/text_color"
         android:textSize="24sp"/>
     <Button
         android:id="@+id/go_to_filter_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:layout_below="@id/user_card_search"
+        android:layout_centerInParent="true"
         android:text="@string/filter"/>
     <Button
         android:id="@+id/go_to_card_collection_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:layout_below="@id/go_to_filter_button"
+        android:layout_centerInParent="true"
         android:text="@string/start_search_text"/>
 
-</LinearLayout>
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/navigation_menu_bio"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        app:menu="@menu/bottom_navigation_menu" />
+
+</RelativeLayout>

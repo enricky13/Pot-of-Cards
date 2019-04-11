@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".before_search_fragments.AboutMeFragment">
+
+    <TextView
+        android:id="@+id/information_about_me_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerInParent="true"
+        android:text="Information about me would be here"/>
+    <Button
+        android:id="@+id/go_to_github"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/information_about_me_textview"
+        android:layout_centerInParent="true"
+        android:text="Checkout my Github"/>
+    <Button
+        android:id="@+id/go_to_linkedIn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/go_to_github"
+        android:layout_centerInParent="true"
+        android:text="Checkout my LinkedIn"/>
+
+</RelativeLayout>

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -59,7 +60,8 @@ public class MonsterCardFragment extends Fragment {
         cardImg = rootView.findViewById(R.id.card_image_card_description);
         cardRulingsButton = rootView.findViewById(R.id.go_to_card_rulings_button);
         //Checks if the network call delivers a 404 error, if it does it hides the button
-        ImplicitErrorNetworkCallSingleton.getInstance(website+cardModel.getName(), cardRulingsButton);
+        Log.d("FINDME", "onCreateView: Make Call now!!");
+        ImplicitErrorNetworkCallSingleton.makeCall(website+cardModel.getName(), cardRulingsButton);
         return rootView;
     }
 
@@ -74,6 +76,7 @@ public class MonsterCardFragment extends Fragment {
         cardDesc.setText(cardModel.getDesc());
         Picasso.get()
                 .load(cardModel.getImage_url())
+                .placeholder(R.drawable.yugioh_card_back)
                 .into(cardImg);
         cardRulingsButton.setOnClickListener(new View.OnClickListener() {
             @Override

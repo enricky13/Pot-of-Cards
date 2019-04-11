@@ -12,8 +12,8 @@
         android:layout_height="wrap_content" />
     <ImageView
         android:id="@+id/card_image_spell_trap"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_width="421px"
+        android:layout_height="614px" />
     <TextView
         android:id="@+id/card_desc_spell_trap"
         android:layout_width="wrap_content"

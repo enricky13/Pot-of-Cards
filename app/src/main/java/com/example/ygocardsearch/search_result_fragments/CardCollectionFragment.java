@@ -9,11 +9,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.example.ygocardsearch.R;
 import com.example.ygocardsearch.adapter.CardCollectionAdapter;
 import com.example.ygocardsearch.card_data.CardDataList;
 import com.example.ygocardsearch.FragmentBackgroundWork;
+import com.squareup.picasso.Picasso;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -21,6 +23,7 @@ import com.example.ygocardsearch.FragmentBackgroundWork;
 public class CardCollectionFragment extends Fragment {
     public static final String USERINPUT_KEY = "USERINPUT";
     private FragmentBackgroundWork fragmentBackgroundWorkListener;
+    private ImageView imageView;
     private String userInput;
     View rootView;
 
@@ -43,6 +46,7 @@ public class CardCollectionFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         rootView = inflater.inflate(R.layout.fragment_card_collection, container, false);
+
         RecyclerView cardCollectionRecyclerView = rootView.findViewById(R.id.card_recyclerview);
         cardCollectionRecyclerView.setAdapter(new CardCollectionAdapter(CardDataList.getFilteredList(), fragmentBackgroundWorkListener));
         cardCollectionRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));

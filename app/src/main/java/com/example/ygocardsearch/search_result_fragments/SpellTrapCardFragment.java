@@ -63,6 +63,7 @@ public class SpellTrapCardFragment extends Fragment {
         cardDesc.setText(cardModel.getDesc());
         Picasso.get()
                 .load(cardModel.getImage_url())
+                .placeholder(R.drawable.yugioh_card_back)
                 .into(cardImg);
         goToCardRulingsButton.setOnClickListener(new View.OnClickListener() {
             @Override
