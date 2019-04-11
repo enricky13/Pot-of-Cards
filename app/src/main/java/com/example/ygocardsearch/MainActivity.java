@@ -2,6 +2,7 @@ package com.example.ygocardsearch;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -24,14 +25,18 @@ import com.example.ygocardsearch.before_search_fragments.UserChoosesFragment;
 import com.example.ygocardsearch.model.CardModel;
 import com.example.ygocardsearch.search_result_fragments.NoSearchResultFragment;
 import com.example.ygocardsearch.search_result_fragments.SpellTrapCardFragment;
+import com.example.ygocardsearch.sharedPref.FilterSharedPreference;
 import com.example.ygocardsearch.splashFragment.SplashPage;
 
 public class MainActivity extends AppCompatActivity implements FragmentBackgroundWork {
+    private SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        sharedPreferences = getSharedPreferences(UserFilterFragment.SHARED_PREF_KEY,MODE_PRIVATE);
+        sharedPreferences.edit().clear().apply();
 
         if (!isInternetOn()){
             Toast.makeText(this, "Provide Internet Connection for best experience", Toast.LENGTH_SHORT).show();
@@ -51,10 +56,24 @@ public class MainActivity extends AppCompatActivity implements FragmentBackgroun
         fragmentTransaction.replace(R.id.main_fragment_container, fragment)
                 .commit();
     }
+    private void inflateFragment(Fragment fragment, boolean addToBackStack, boolean isLeftAnimation){
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager()
+                .beginTransaction();
+        if (addToBackStack){
+            fragmentTransaction.addToBackStack(null);
+        }
+        if (isLeftAnimation){
+            fragmentTransaction.setCustomAnimations(R.anim.enter_from_right, R.anim.enter_to_right);
+        }
+        else {
+            fragmentTransaction.setCustomAnimations(R.anim.slide_out_up, R.anim.slide_in_up);
+        }
+        fragmentTransaction.replace(R.id.main_fragment_container, fragment).commit();
+    }
 
     @Override
     public void goToCardSearchFragment() {
-        inflateFragment(CardSearchFragment.newInstance());
+        inflateFragment(CardSearchFragment.newInstance(), true, true);
     }
 
     @Override
@@ -62,7 +81,7 @@ public class MainActivity extends AppCompatActivity implements FragmentBackgroun
         if (CardDataList.getFilteredList().size() == 0) {
             Log.d("FINDME", "goToCardCollectionFragment: No Search Results");
             NoSearchResultFragment noSearchResultFragment = NoSearchResultFragment.newInstance();
-            inflateFragment(noSearchResultFragment,true);
+            inflateFragment(noSearchResultFragment, true);
         } else if (userInput == null){
             CardCollectionFragment cardCollectionFragment = CardCollectionFragment.newInstance(userInput);
             inflateFragment(cardCollectionFragment,true);
@@ -89,7 +108,7 @@ public class MainActivity extends AppCompatActivity implements FragmentBackgroun
     @Override
     public void goToUserFilter() {
         UserFilterFragment userFilterFragment = UserFilterFragment.newInstance();
-        inflateFragment(userFilterFragment, true);
+        inflateFragment(userFilterFragment, true, true);
     }
 
     @Override
@@ -131,6 +150,27 @@ public class MainActivity extends AppCompatActivity implements FragmentBackgroun
     @Override
     public void goToBioFragment() {
         AboutMeFragment aboutMeFragment = AboutMeFragment.newInstance();
-        inflateFragment(aboutMeFragment, true);
+        inflateFragment(aboutMeFragment, true,false);
+    }
+
+    @Override
+    public void goToLinkedIn() {
+        String linkedInProfile = "https://www.linkedin.com/in/enrique-cruz-95513aa1";
+        Intent webIntent = new Intent(Intent.ACTION_VIEW);
+        webIntent.setData(Uri.parse(linkedInProfile));
+        startActivity(webIntent);
+    }
+
+    @Override
+    public void goToGithub() {
+        String githubProfile = "https://github.com/enricky13?tab=repositories";
+        Intent webIntent = new Intent(Intent.ACTION_VIEW);
+        webIntent.setData(Uri.parse(githubProfile));
+        startActivity(webIntent);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
     }
 }

@@ -143,6 +143,7 @@ public class UserFilterFragment extends Fragment implements AdapterView.OnItemSe
                 monsterCheck.setChecked(isMonster);
                 spellCheck.setChecked(isSpell);
                 trapCheck.setChecked(isTrap);
+                FilterSharedPreference.addMainCardTypeToSharedPref(sharedPreferences, isMonster, isSpell, isTrap);
                 Toast.makeText(getContext(), "Filter Information Deleted", Toast.LENGTH_SHORT).show();
             }
         });

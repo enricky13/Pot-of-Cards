@@ -56,6 +56,14 @@ public class CardSearchFragment extends Fragment {
         searchCardEt = rootView.findViewById(R.id.user_card_search);
         goToBioBnv = rootView.findViewById(R.id.navigation_menu_bio);
 
+        if ((sharedPreferences == null) || !sharedPreferences.getBoolean(FilterSharedPreference.MONSTER_CARD_KEY,false) && !sharedPreferences.getBoolean(FilterSharedPreference.SPELL_CARD_KEY, false) && !sharedPreferences.getBoolean(FilterSharedPreference.TRAP_CARD_KEY,false)){
+                    sharedPreferences.edit()
+                    .putBoolean(FilterSharedPreference.MONSTER_CARD_KEY,true)
+                    .putBoolean(FilterSharedPreference.SPELL_CARD_KEY,true)
+                    .putBoolean(FilterSharedPreference.TRAP_CARD_KEY,true)
+                    .apply();
+        }
+
         Log.d(TAG, "onCreateView: "+sharedPreferences.getString(FilterSharedPreference.MONSTER_ATTRIBUTE_KEY,null));
 
         return rootView;

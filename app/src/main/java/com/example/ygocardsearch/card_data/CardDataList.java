@@ -62,6 +62,7 @@ public class CardDataList {
         if (userInput != null) {
             userInputLowerCase = userInput.toLowerCase().trim().replaceAll(" +", " ").replaceAll("-", " ");   // Word is minimized to 1 space only but only if there are letters following
         }
+
         Log.d(TAG, "makeFilteredList: " + userInput);
         Log.d(TAG, "makeFilteredList: " + monsterType);
         Log.d(TAG, "makeFilteredList: " + monsterAttribute);

@@ -3,7 +3,6 @@ package com.example.ygocardsearch.views;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -11,8 +10,6 @@ import android.widget.TextView;
 import com.example.ygocardsearch.R;
 import com.example.ygocardsearch.FragmentBackgroundWork;
 import com.example.ygocardsearch.model.CardModel;
-import com.squareup.picasso.Callback;
-import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
 import java.util.Arrays;
@@ -28,7 +25,8 @@ public class CardCollectionViewHolder extends RecyclerView.ViewHolder {
     private static final String LINK_MONSTER = "Link Monster";
     private static final String FUSION_MONSTER = "Fusion Monster";
     private static final String XYZ_MONSTER = "XYZ Monster";
-    private String[] effectMonsters = {"Flip Effect Monster","Effect Monster","Tuner Monster","Gemini Monster","Spirit Monster","Toon Monster","Union Effect Monster","Union Tuner Effect Monster"};
+    private static final String[] PENDULUM_MONSTER = {"Pendulum Normal Monster", "Pendulum Effect Monster", "Pendulum Effect Fusion Monster", "Pendulum Flip Effect Monster", "XYZ Pendulum Effect Monster"};
+    private static String[] EFFECT_MONSTERS = {"Flip Effect Monster","Effect Monster","Tuner Monster","Gemini Monster","Spirit Monster","Toon Monster","Union Effect Monster","Union Tuner Effect Monster"};
     private TextView cardNameTv;
     private ImageView cardImageIv;
     private FragmentBackgroundWork fragmentBackgroundWork;
@@ -55,8 +53,9 @@ public class CardCollectionViewHolder extends RecyclerView.ViewHolder {
     private void setBackgroundToCorrectColor(CardModel cardModel) {
         if (cardModel.getType().equals(NORMAL_MONSTER)){
             setBackgroundColorBasedOnCard(R.color.normalMonster);
+            cardNameTv.setTextColor(itemView.getResources().getColor(R.color.xyzMonster));
         }
-        if (Arrays.asList(effectMonsters).contains(cardModel.getType())){
+        if (Arrays.asList(EFFECT_MONSTERS).contains(cardModel.getType())){
             setBackgroundColorBasedOnCard(R.color.effectMonster);
         }
         if (cardModel.getType().equals(RITUAL_MONSTER) || cardModel.getType().equals(RITUAL_EFFECT_MONSTER)){
@@ -64,6 +63,7 @@ public class CardCollectionViewHolder extends RecyclerView.ViewHolder {
         }
         if (cardModel.getType().equals(SYNCHRO_MONSTER) || cardModel.getType().equals(SYNCHRO_TUNER_MONSTER)){
             setBackgroundColorBasedOnCard(R.color.synchroMonster);
+            cardNameTv.setTextColor(itemView.getResources().getColor(R.color.xyzMonster));
         }
         if (cardModel.getType().equals(LINK_MONSTER)){
             setBackgroundColorBasedOnCard(R.color.linkMonster);
@@ -79,6 +79,9 @@ public class CardCollectionViewHolder extends RecyclerView.ViewHolder {
         }
         if (cardModel.getType().equals(TRAP_CARD)){
             setBackgroundColorBasedOnCard(R.color.trapCard);
+        }
+        if (Arrays.asList(PENDULUM_MONSTER).contains(cardModel.getType())){
+            itemView.setBackground(ContextCompat.getDrawable(itemView.getContext(),R.drawable.pendulum_background_color));
         }
     }
 

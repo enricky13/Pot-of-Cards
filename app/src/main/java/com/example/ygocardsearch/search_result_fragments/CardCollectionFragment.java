@@ -46,6 +46,7 @@ public class CardCollectionFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         rootView = inflater.inflate(R.layout.fragment_card_collection, container, false);
+
         RecyclerView cardCollectionRecyclerView = rootView.findViewById(R.id.card_recyclerview);
         cardCollectionRecyclerView.setAdapter(new CardCollectionAdapter(CardDataList.getFilteredList(), fragmentBackgroundWorkListener));
         cardCollectionRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
