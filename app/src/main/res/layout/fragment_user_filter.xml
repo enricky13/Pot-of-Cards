@@ -13,13 +13,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:text="@string/main_card_type"/>
+        android:text="@string/main_card_type"
+        android:textColor="@color/text_color"/>
 
     <CheckBox
         android:id="@+id/monster_card_checkbox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/monster_card"
+        android:textColor="@color/text_color"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/user_filter_intro" />
 
@@ -28,6 +30,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/spell_card"
+        android:textColor="@color/text_color"
         app:layout_constraintStart_toEndOf="@id/monster_card_checkbox"
         app:layout_constraintTop_toBottomOf="@id/user_filter_intro" />
 
@@ -36,6 +39,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/trap_card"
+        android:textColor="@color/text_color"
         app:layout_constraintStart_toEndOf="@id/spell_card_checkbox"
         app:layout_constraintTop_toBottomOf="@id/user_filter_intro" />
 
@@ -44,6 +48,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/monster_type"
+        android:textColor="@color/text_color"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/trap_card_checkbox"/>
@@ -69,6 +74,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/check_attack"
+        android:textColor="@color/text_color"
         app:layout_constraintTop_toBottomOf="@id/monster_type_spinner"
         app:layout_constraintStart_toStartOf="parent"/>
 
@@ -77,6 +83,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/attack_range_text"
+        android:textColor="@color/text_color"
         android:layout_marginStart="8dp"
         app:layout_constraintBaseline_toBaselineOf="@id/attack_value_checkbox"
         app:layout_constraintStart_toEndOf="@id/attack_value_checkbox"
@@ -87,6 +94,8 @@
     android:layout_width="48dp"
     android:layout_height="wrap_content"
         android:hint="@string/min"
+        android:textColorHint="@color/text_color"
+        android:textColor="@color/text_color"
         android:layout_marginStart="8dp"
         android:singleLine="true"
         android:inputType="numberPassword"
@@ -99,6 +108,7 @@
         android:id="@+id/just_the_word_to"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@color/text_color"
         android:text="@string/to"
         app:layout_constraintStart_toEndOf="@id/atk_minumum"
         app:layout_constraintTop_toBottomOf="@id/monster_type_spinner"/>
@@ -111,6 +121,8 @@
         android:inputType="numberPassword"
         android:maxLength="5"
         android:hint="@string/max"
+        android:textColorHint="@color/text_color"
+        android:textColor="@color/text_color"
         app:layout_constraintBaseline_toBaselineOf="@id/just_the_word_to"
         app:layout_constraintStart_toEndOf="@id/just_the_word_to"
         app:layout_constraintTop_toBottomOf="@id/monster_type_spinner"/>
@@ -128,6 +140,7 @@
         android:id="@+id/spell_type_spinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@color/text_color"
         app:layout_constraintTop_toBottomOf="@id/which_spell_type"
         app:layout_constraintStart_toStartOf="parent">
     </Spinner>
@@ -137,6 +150,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/trap_type"
+        android:textColor="@color/text_color"
         app:layout_constraintTop_toBottomOf="@id/spell_type_spinner"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
