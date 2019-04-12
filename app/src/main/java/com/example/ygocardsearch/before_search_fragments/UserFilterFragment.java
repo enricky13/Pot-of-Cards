@@ -56,11 +56,11 @@ public class UserFilterFragment extends Fragment implements AdapterView.OnItemSe
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         rootView = inflater.inflate(R.layout.fragment_user_filter, container, false);
+        sharedPreferences = rootView.getContext().getSharedPreferences(SHARED_PREF_KEY, Context.MODE_PRIVATE);
         findViews();
+        spinnerSetup();
         sharedPrefUpdate();
-
-        Log.d(TAG, "onCreateView: Value of Max Attack: "+atkMaxValue);
-
+        Log.d(TAG, "onCreateView: Value of monster type position: "+monsterTypePosition);
         setFiltersForUser();
         return rootView;
     }
@@ -87,6 +87,7 @@ public class UserFilterFragment extends Fragment implements AdapterView.OnItemSe
     }
 
     private void setFiltersForUser() {
+        Log.d(TAG, "setFiltersForUser: "+checkForAtk+monsterTypePosition+monsterAttributePosition+spellTypeSpinnerPosition+trapTypeSpinnerPosition);
         monsterCheck.setChecked(isMonster);
         spellCheck.setChecked(isSpell);
         trapCheck.setChecked(isTrap);
@@ -103,7 +104,7 @@ public class UserFilterFragment extends Fragment implements AdapterView.OnItemSe
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        spinnerSetup();
+
         Log.d(TAG, "onViewCreated Monster Type Value: "+monsterType);
 
         monsterCheck.setOnClickListener(new View.OnClickListener() {
@@ -179,7 +180,6 @@ public class UserFilterFragment extends Fragment implements AdapterView.OnItemSe
     public void onAttach(Context context) {
         super.onAttach(context);
         fragmentBackgroundWork = (FragmentBackgroundWork) context;
-        sharedPreferences = context.getSharedPreferences(SHARED_PREF_KEY, Context.MODE_PRIVATE);
     }
 
     @Override
@@ -207,20 +207,20 @@ public class UserFilterFragment extends Fragment implements AdapterView.OnItemSe
     }
 
     public void spinnerSetup() {
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(), R.array.monster_type, R.layout.support_simple_spinner_dropdown_item);
-        adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(), R.array.monster_type, R.layout.spinner_item);
+        adapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
         monsterTypeSpinner.setAdapter(adapter);
 
-        adapter = ArrayAdapter.createFromResource(getContext(), R.array.monster_attribute, R.layout.support_simple_spinner_dropdown_item);
-        adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+        adapter = ArrayAdapter.createFromResource(getContext(), R.array.monster_attribute, R.layout.spinner_item);
+        adapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
         monsterAttributeSpinner.setAdapter(adapter);
 
-        adapter = ArrayAdapter.createFromResource(getContext(), R.array.spell_type, R.layout.support_simple_spinner_dropdown_item);
-        adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+        adapter = ArrayAdapter.createFromResource(getContext(), R.array.spell_type, R.layout.spinner_item);
+        adapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
         spellTypeSpinner.setAdapter(adapter);
 
-        adapter = ArrayAdapter.createFromResource(getContext(), R.array.trap_type, R.layout.support_simple_spinner_dropdown_item);
-        adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+        adapter = ArrayAdapter.createFromResource(getContext(), R.array.trap_type, R.layout.spinner_item);
+        adapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
         trapTypeSpinner.setAdapter(adapter);
 
         monsterTypeSpinner.setOnItemSelectedListener(this);
@@ -247,16 +247,18 @@ public class UserFilterFragment extends Fragment implements AdapterView.OnItemSe
     // Code runs through here when starting the app
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        Log.d(TAG, "onItemSelected: Code is running through here");
-        Log.d(TAG, "onItemSelected: Position Number"+position);
         switch (parent.getId()) {
             case R.id.monster_type_spinner:
                 if (position == 0) {
+                    Log.d(TAG, "onItemSelected: Monster Type being overriden");
                     monsterType = null;
                 } else {
-                    monsterType = monsterTypeSpinner.getItemAtPosition(monsterTypePosition).toString();
+                    Log.d(TAG, "onItemSelected: "+position);
+                    monsterType = parent.getItemAtPosition(position).toString();
+                    Log.d(TAG, "onItemSelected: "+monsterType);
                 }
                 monsterTypePosition = position;
+                Log.d(TAG, "onItemSelected: Monster Type Position"+monsterTypePosition);
                 break;
             case R.id.monster_attribute_spinner:
                 if (position == 0) {

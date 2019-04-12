@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -22,6 +23,8 @@
         android:layout_height="wrap_content"
         android:text="@string/monster_card"
         android:textColor="@color/text_color"
+        android:buttonTint="@color/text_color"
+        android:layout_marginStart="40dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/user_filter_intro" />
 
@@ -31,6 +34,7 @@
         android:layout_height="wrap_content"
         android:text="@string/spell_card"
         android:textColor="@color/text_color"
+        android:buttonTint="@color/text_color"
         app:layout_constraintStart_toEndOf="@id/monster_card_checkbox"
         app:layout_constraintTop_toBottomOf="@id/user_filter_intro" />
 
@@ -40,6 +44,7 @@
         android:layout_height="wrap_content"
         android:text="@string/trap_card"
         android:textColor="@color/text_color"
+        android:buttonTint="@color/text_color"
         app:layout_constraintStart_toEndOf="@id/spell_card_checkbox"
         app:layout_constraintTop_toBottomOf="@id/user_filter_intro" />
 
@@ -48,6 +53,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/monster_type"
+        android:layout_marginTop="16dp"
         android:textColor="@color/text_color"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -57,6 +63,8 @@
         android:id="@+id/monster_type_spinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:backgroundTint="@color/text_color"
+        android:layout_marginStart="40dp"
         app:layout_constraintTop_toBottomOf="@id/which_monster_type"
         app:layout_constraintStart_toStartOf="parent">
     </Spinner>
@@ -65,7 +73,9 @@
         android:id="@+id/monster_attribute_spinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toEndOf="@id/monster_type_spinner"
+        android:backgroundTint="@color/text_color"
+        android:layout_marginEnd="40dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/which_monster_type">
     </Spinner>
 
@@ -75,6 +85,9 @@
         android:layout_height="wrap_content"
         android:text="@string/check_attack"
         android:textColor="@color/text_color"
+        android:buttonTint="@color/text_color"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
         app:layout_constraintTop_toBottomOf="@id/monster_type_spinner"
         app:layout_constraintStart_toStartOf="parent"/>
 
@@ -100,7 +113,7 @@
         android:singleLine="true"
         android:inputType="numberPassword"
         android:maxLength="5"
-        app:layout_constraintBaseline_toBaselineOf="@id/just_the_word_to"
+        app:layout_constraintBaseline_toBaselineOf="@id/attack_min_and_max_text"
         app:layout_constraintStart_toEndOf="@id/attack_min_and_max_text"
         app:layout_constraintTop_toBottomOf="@id/monster_type_spinner"/>
 
@@ -110,6 +123,7 @@
         android:layout_height="wrap_content"
         android:textColor="@color/text_color"
         android:text="@string/to"
+        app:layout_constraintBaseline_toBaselineOf="@id/atk_minumum"
         app:layout_constraintStart_toEndOf="@id/atk_minumum"
         app:layout_constraintTop_toBottomOf="@id/monster_type_spinner"/>
 
@@ -132,7 +146,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/spell_type"
-        app:layout_constraintTop_toBottomOf="@id/atk_maximum"
+        android:textColor="@color/text_color"
+        android:layout_marginTop="40dp"
+        app:layout_constraintTop_toBottomOf="@id/attack_min_and_max_text"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
@@ -140,9 +156,11 @@
         android:id="@+id/spell_type_spinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@color/text_color"
+        android:layout_marginTop="8dp"
+        android:backgroundTint="@color/text_color"
         app:layout_constraintTop_toBottomOf="@id/which_spell_type"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
     </Spinner>
 
     <TextView
@@ -151,6 +169,7 @@
         android:layout_height="wrap_content"
         android:text="@string/trap_type"
         android:textColor="@color/text_color"
+        android:layout_marginTop="40dp"
         app:layout_constraintTop_toBottomOf="@id/spell_type_spinner"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
@@ -159,8 +178,11 @@
         android:id="@+id/trap_type_spinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:backgroundTint="@color/text_color"
         app:layout_constraintTop_toBottomOf="@id/which_trap_type"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
     </Spinner>
 

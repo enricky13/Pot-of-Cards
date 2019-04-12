@@ -64,8 +64,7 @@ public class CardSearchFragment extends Fragment {
                     .apply();
         }
 
-        Log.d(TAG, "onCreateView: "+sharedPreferences.getString(FilterSharedPreference.MONSTER_ATTRIBUTE_KEY,null));
-
+        Log.d(TAG, "onCreateView: "+sharedPreferences.getInt(FilterSharedPreference.MONSTER_ATTRIBUTE_POSITION_KEY,-1));
         return rootView;
     }
 
