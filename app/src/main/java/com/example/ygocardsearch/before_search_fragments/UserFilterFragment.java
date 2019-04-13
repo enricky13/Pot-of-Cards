@@ -2,7 +2,6 @@ package com.example.ygocardsearch.before_search_fragments;
 
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -208,7 +207,7 @@ public class UserFilterFragment extends Fragment implements AdapterView.OnItemSe
     }
 
     public void spinnerSetup() {
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(), R.array.monster_type, R.layout.spinner_item);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(), R.array.monster_race, R.layout.spinner_item);
         adapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
         monsterTypeSpinner.setAdapter(adapter);
 
