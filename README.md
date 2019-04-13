@@ -8,4 +8,5 @@ This app will make a network call to an API that will end up displaying a list o
 
 You can start off by 
 <img src="https://github.com/enricky13/Pot-of-Cards/blob/master/app/src/main/res/drawable-v24/app_screenshot_01.png" width="256" height="400" title="Screenshot1">
+<br>
 *This is an open source project in which I do not own any of the Yugioh related items or cards on this app*
