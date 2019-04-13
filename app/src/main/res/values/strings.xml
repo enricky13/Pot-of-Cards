@@ -17,7 +17,7 @@
     <string name="card_rulings">Card Rulings</string>
     <string name="monster_type">Monster Type:</string>
 
-    <string-array name="monster_type">
+    <string-array name="monster_race">
         <item>Type:</item>
         <item>Aqua</item>
         <item>Beast</item>

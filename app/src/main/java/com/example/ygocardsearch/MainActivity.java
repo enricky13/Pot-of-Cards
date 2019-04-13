@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity implements FragmentBackgroun
 
     @Override
     public void goToCardSearchFragment() {
-        inflateFragment(CardSearchFragment.newInstance(), false, true);
+        inflateFragment(CardSearchFragment.newInstance(), true, true);
     }
 
     @Override
@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity implements FragmentBackgroun
             inflateFragment(noSearchResultFragment, true);
         } else if (userInput == null){
             CardCollectionFragment cardCollectionFragment = CardCollectionFragment.newInstance(userInput);
-            inflateFragment(cardCollectionFragment,true);
+            inflateFragment(cardCollectionFragment, true);
         }
         else {
             Log.d("FINDME", "User Has Inputted ");
