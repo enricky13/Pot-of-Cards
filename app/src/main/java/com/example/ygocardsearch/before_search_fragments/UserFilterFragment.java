@@ -169,6 +169,7 @@ public class UserFilterFragment extends Fragment implements AdapterView.OnItemSe
                     FilterSharedPreference.addSpellFilterToSharedPref(sharedPreferences, spellType, spellTypeSpinnerPosition);
                     FilterSharedPreference.addTrapFilterToSharedPref(sharedPreferences, trapType, trapTypeSpinnerPosition);
 
+                    Toast.makeText(getContext(), "Filter Information Saved", Toast.LENGTH_SHORT).show();
                     fragmentBackgroundWork.goToCardSearchFragment();
                 }
 

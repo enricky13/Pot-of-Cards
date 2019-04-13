@@ -89,5 +89,10 @@
     <string name="attack_monster">Attack: %1$s</string>
     <string name="defense_monster">Defense: %1$s</string>
     <string name="monster_level_rank">Level / Rank: %1$s</string>
+    <string name="about_me_story">An android developer who enjoys playing card games if you didn\'t guess by now. I will continue working on this app and you will be able to see much more features than what is here now.
+    This app was developed with a lot of desire and perseverance, I enjoyed designing and experimenting with the api and the challenges that came with it. If you want to know more about me
+    below is my Github and LinkedIn, take a look and if you want to hire me just let me know.</string>
+    <string name="checkout_my_github">Checkout my Github</string>
+    <string name="checkout_my_linkedin">Checkout my LinkedIn</string>
 
 </resources>

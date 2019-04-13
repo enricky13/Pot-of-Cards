@@ -74,7 +74,10 @@ public class CardSearchFragment extends Fragment {
         if (CardDataList.getCardModelList() == null){
             goToCardCollectionButton.setText(getString(R.string.re_download));
         }
+        buttonSetup();
+    }
 
+    private void buttonSetup() {
         goTofilterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

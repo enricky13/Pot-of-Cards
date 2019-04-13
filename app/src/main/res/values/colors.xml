@@ -2,15 +2,15 @@
 <resources>
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
-    <color name="normalMonster">#EEEA0E</color>
+    <color name="colorAccent">#BFD81B60</color>
+    <color name="normalMonster">#BCEEEA0E</color>
     <color name="effectMonster">#CDF0B80A</color>
-    <color name="ritualMonster">#09A0F1</color>
-    <color name="fusionMonster">#7003B8</color>
+    <color name="ritualMonster">#C409A0F1</color>
+    <color name="fusionMonster">#C67003B8</color>
     <color name="linkMonster">#D7000CF7</color>
-    <color name="synchroMonster">#C9C9C9</color>
+    <color name="synchroMonster">#B2C9C9C9</color>
     <color name="spellCard">#DC159B4C</color>
     <color name="trapCard">#990B5D</color>
-    <color name="xyzMonster">#202020</color>
+    <color name="xyzMonster">#CD202020</color>
     <color name="text_color">#FFFFFF</color>
 </resources>

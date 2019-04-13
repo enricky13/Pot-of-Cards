@@ -60,7 +60,7 @@ public class CardDataList {
 
 
         if (userInput != null) {
-            userInputLowerCase = userInput.toLowerCase().trim().replaceAll(" +", " ").replaceAll("-", " ");   // Word is minimized to 1 space only but only if there are letters following
+            userInputLowerCase = userInput.toLowerCase().trim().replaceAll(" +", " ").replaceAll("-", " ").replaceAll("'", " ");   // Word is minimized to 1 space only but only if there are letters following
         }
 
         Log.d(TAG, "makeFilteredList: " + userInput);
@@ -71,8 +71,8 @@ public class CardDataList {
         Log.d(TAG, "makeFilteredList: " + isTrap);
 
         for (CardModel card : cardModelList) {
-            String cardName = card.getName().toLowerCase().replaceAll("-", " ");
-            String cardDesc = card.getDesc().toLowerCase().replaceAll("-", " ");
+            String cardName = card.getName().toLowerCase().replaceAll("-", " ").replaceAll("'", " ");
+            String cardDesc = card.getDesc().toLowerCase().replaceAll("-", " ").replaceAll("'", " ");
             int cardAtkValue = 0;
             if (card.getAtk() != null){
                 cardAtkValue = Integer.parseInt(card.getAtk());
@@ -155,6 +155,7 @@ public class CardDataList {
                         }
                     }
                     else {
+                        Log.d(TAG, "monsterFilter: Card being checked");
                         if (inputNullChecker(userInput,filteredList,card,cardName,cardDesc))
                             return true;
                     }

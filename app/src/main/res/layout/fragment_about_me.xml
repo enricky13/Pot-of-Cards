@@ -9,22 +9,28 @@
         android:id="@+id/information_about_me_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:layout_marginTop="16dp"
         android:layout_alignParentTop="true"
         android:layout_centerInParent="true"
-        android:text="Information about me would be here"/>
+        android:textSize="16sp"
+        android:textColor="@color/text_color"
+        android:background="#60000000"
+        android:text="@string/about_me_story"/>
     <Button
         android:id="@+id/go_to_github"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/information_about_me_textview"
         android:layout_centerInParent="true"
-        android:text="Checkout my Github"/>
+        android:text="@string/checkout_my_github"/>
     <Button
         android:id="@+id/go_to_linkedIn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/go_to_github"
         android:layout_centerInParent="true"
-        android:text="Checkout my LinkedIn"/>
+        android:text="@string/checkout_my_linkedin"/>
 
 </RelativeLayout>

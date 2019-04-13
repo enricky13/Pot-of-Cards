@@ -21,11 +21,9 @@ import com.example.ygocardsearch.network.CardNetworkCall;
 import com.example.ygocardsearch.search_result_fragments.CardCollectionFragment;
 import com.example.ygocardsearch.search_result_fragments.MonsterCardFragment;
 import com.example.ygocardsearch.before_search_fragments.CardSearchFragment;
-import com.example.ygocardsearch.before_search_fragments.UserChoosesFragment;
 import com.example.ygocardsearch.model.CardModel;
 import com.example.ygocardsearch.search_result_fragments.NoSearchResultFragment;
 import com.example.ygocardsearch.search_result_fragments.SpellTrapCardFragment;
-import com.example.ygocardsearch.sharedPref.FilterSharedPreference;
 import com.example.ygocardsearch.splashFragment.SplashPage;
 
 public class MainActivity extends AppCompatActivity implements FragmentBackgroundWork {
@@ -35,8 +33,9 @@ public class MainActivity extends AppCompatActivity implements FragmentBackgroun
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        sharedPreferences = getSharedPreferences(UserFilterFragment.SHARED_PREF_KEY,MODE_PRIVATE);
-        sharedPreferences.edit().clear().apply();
+        // Resets users filters may apply in future developement
+//        sharedPreferences = getSharedPreferences(UserFilterFragment.SHARED_PREF_KEY,MODE_PRIVATE);
+//        sharedPreferences.edit().clear().apply();
 
         if (!isInternetOn()){
             Toast.makeText(this, "Provide Internet Connection for best experience", Toast.LENGTH_SHORT).show();
@@ -73,7 +72,7 @@ public class MainActivity extends AppCompatActivity implements FragmentBackgroun
 
     @Override
     public void goToCardSearchFragment() {
-        inflateFragment(CardSearchFragment.newInstance(), true, true);
+        inflateFragment(CardSearchFragment.newInstance(), false, true);
     }
 
     @Override
@@ -122,8 +121,7 @@ public class MainActivity extends AppCompatActivity implements FragmentBackgroun
 
     @Override
     public void startAppFragment() {
-        UserChoosesFragment userChoosesFragment = UserChoosesFragment.newInstance();
-        inflateFragment(userChoosesFragment);
+        inflateFragment(CardSearchFragment.newInstance(),false,true);
     }
 
     @Override
