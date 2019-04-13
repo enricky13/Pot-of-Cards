@@ -64,8 +64,7 @@ public class CardSearchFragment extends Fragment {
                     .apply();
         }
 
-        Log.d(TAG, "onCreateView: "+sharedPreferences.getString(FilterSharedPreference.MONSTER_ATTRIBUTE_KEY,null));
-
+        Log.d(TAG, "onCreateView: "+sharedPreferences.getInt(FilterSharedPreference.MONSTER_ATTRIBUTE_POSITION_KEY,-1));
         return rootView;
     }
 
@@ -75,7 +74,10 @@ public class CardSearchFragment extends Fragment {
         if (CardDataList.getCardModelList() == null){
             goToCardCollectionButton.setText(getString(R.string.re_download));
         }
+        buttonSetup();
+    }
 
+    private void buttonSetup() {
         goTofilterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

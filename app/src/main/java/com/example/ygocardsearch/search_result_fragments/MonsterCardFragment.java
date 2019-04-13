@@ -26,7 +26,7 @@ import com.squareup.picasso.Picasso;
 public class MonsterCardFragment extends Fragment {
     public static final String CARD_MODEL = "CardModel";
     private String website = "https://yugioh.fandom.com/wiki/Card_Rulings:";
-    private TextView cardName, cardLevel, cardAtk, cardDef, cardDesc;
+    private TextView cardName, cardLevel, cardType, cardAttribute, cardAtk, cardDef, cardDesc;
     private Button cardRulingsButton;
     private ImageView cardImg;
     private CardModel cardModel;
@@ -54,6 +54,8 @@ public class MonsterCardFragment extends Fragment {
         rootView = inflater.inflate(R.layout.fragment_card_monster, container, false);
         cardName = rootView.findViewById(R.id.card_name_card_description);
         cardLevel = rootView.findViewById(R.id.card_level_card_description);
+        cardType = rootView.findViewById(R.id.monster_type_card_description);
+        cardAttribute = rootView.findViewById(R.id.monster_attribute_card_description);
         cardAtk = rootView.findViewById(R.id.card_atk_card_description);
         cardDef = rootView.findViewById(R.id.card_def_card_description);
         cardDesc = rootView.findViewById(R.id.card_desc_card_description);
@@ -69,10 +71,19 @@ public class MonsterCardFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        String attributeText = getStringForText(R.string.attribute_monster, cardModel.getAttribute());
+        String typeText = getStringForText(R.string.type_monster, cardModel.getRace());
+        String atkText = getStringForText(R.string.attack_monster, cardModel.getAtk());
+        String defText = getStringForText(R.string.defense_monster, cardModel.getDef());
+        String levelText = getStringForText(R.string.monster_level_rank, cardModel.getLevel());
+
+
         cardName.setText(cardModel.getName());
-        cardLevel.setText(cardModel.getLevel());
-        cardAtk.setText(cardModel.getAtk());
-        cardDef.setText(cardModel.getDef());
+        cardLevel.setText(levelText);
+        cardAttribute.setText(attributeText);
+        cardType.setText(typeText);
+        cardAtk.setText(atkText);
+        cardDef.setText(defText);
         cardDesc.setText(cardModel.getDesc());
         Picasso.get()
                 .load(cardModel.getImage_url())
@@ -84,6 +95,10 @@ public class MonsterCardFragment extends Fragment {
                 fragmentBackgroundWork.goToCardRulings(cardModel.getName());
             }
         });
+    }
+
+    private String getStringForText(int stringId, String placeHolder) {
+        return getResources().getString(stringId, placeHolder);
     }
 
     @Override

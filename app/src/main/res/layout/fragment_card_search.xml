@@ -13,6 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/text_color"
+        android:textSize="16sp"
         android:text="@string/dont_know_text"/>
 
     <EditText
